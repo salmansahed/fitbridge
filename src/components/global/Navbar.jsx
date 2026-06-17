@@ -61,7 +61,7 @@ const Navbar = () => {
           ) : (
             <>
               <ThemeSwitch />
-              <Link href="/signup">
+              <Link href="/register">
                 <Button className="text-white bg-green-600 rounded-md hover:bg-green-700 hover:rounded-3xl transition-all duration-300">
                   Register
                 </Button>
