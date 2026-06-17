@@ -1,4 +1,3 @@
-"use client";
 import { Button } from "@heroui/react";
 import Link from "next/link";
 import Image from "next/image";
@@ -15,7 +14,7 @@ const HeroBanner = () => {
   ];
 
   return (
-    <section className="py-20 flex items-center dark:from-neutral-950 dark:bg-black overflow-hidden px-3">
+    <section className="py-20 flex items-center dark:bg-black overflow-hidden px-3">
       <div className="container mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         <div className="lg:col-span-7 space-y-6 md:space-y-8 text-center lg:text-left">
           {/* Banner Tag */}
