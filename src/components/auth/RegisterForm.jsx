@@ -75,7 +75,7 @@ const RegisterForm = () => {
       toast.error("Registration failed: " + error.message);
     } else {
       toast.success("Registration successful! Redirecting to login...");
-      // router.push("/login");
+      router.push("/login");
     }
   };
 
@@ -91,11 +91,11 @@ const RegisterForm = () => {
       className="flex w-full max-w-xl flex-col gap-5 shadow-2xl shadow-indigo-600/10 dark:shadow-black/40 rounded-3xl border border-zinc-200/60 dark:border-zinc-800/80 p-6 md:p-8 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl"
     >
       <div className="space-y-1 text-center">
-        <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+        <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight bg-linear-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
           Register Your Account
         </h2>
         <p className="text-xs md:text-sm text-zinc-500 dark:text-zinc-400">
-          Join StudyNook to book your study space
+          Join FitBridge to start your fitness journey
         </p>
       </div>
 
@@ -291,7 +291,7 @@ const RegisterForm = () => {
         <Button
           type="submit"
           disabled={isUploading}
-          className="w-full h-12 text-sm font-semibold text-white bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600 hover:from-indigo-500 hover:to-pink-500 shadow-md shadow-indigo-600/20 rounded-md hover:rounded-3xl transition-all duration-300 active:scale-98 group"
+          className="w-full h-12 text-sm font-semibold text-white bg-linear-to-r from-green-600 to-blue-600 hover:from-green-500 hover:to-blue-500 shadow-md shadow-indigo-600/20 rounded-md hover:rounded-3xl transition-all duration-300 active:scale-98 group"
         >
           <IoPersonAddOutline className="group-hover:scale-125 transition-all duration-300" />
           {isUploading ? "Uploading Photo..." : "Create Account"}
@@ -323,7 +323,7 @@ const RegisterForm = () => {
           Already have an account?{" "}
           <Link
             href="/login"
-            className="font-semibold text-indigo-600 dark:text-indigo-400 hover:underline"
+            className="font-semibold text-blue-600 dark:text-blue-400 hover:underline hover:underline-offset-3"
           >
             Login
           </Link>
