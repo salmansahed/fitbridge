@@ -24,6 +24,10 @@ const Navbar = () => {
   const { data: session, isPending } = authClient.useSession();
   const user = session?.user;
 
+  if (pathName.includes("dashboard")) {
+    return null;
+  }
+
   return (
     <div className="bg-white/50 dark:bg-black/10 backdrop-blur-sm shadow dark:shadow-gray-800 py-2 sm:py-4 px-3 sm:px-4 fixed top-0 left-0 right-0 z-50">
       <div className="container mx-auto flex items-center justify-between">
@@ -58,9 +62,11 @@ const Navbar = () => {
             </>
           ) : user ? (
             <>
-              <Button className="rounded-md hover:rounded-3xl transition-all duration-300 bg-linear-to-r from-green-600 to-blue-600 text-white hover:from-green-700 hover:to-blue-700">
-                Dashboard <RiDashboardFill />
-              </Button>
+              <Link href="/dashboard">
+                <Button className="rounded-md hover:rounded-3xl transition-all duration-300 bg-linear-to-r from-green-600 to-blue-600 text-white hover:from-green-700 hover:to-blue-700">
+                  Dashboard <RiDashboardFill />
+                </Button>
+              </Link>
               <div className="border border-black/20 h-8" />
               <div className="flex gap-2">
                 <Image
