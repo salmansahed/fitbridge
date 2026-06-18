@@ -3,13 +3,12 @@ import DashboardSidebar from "@/components/dashboard/DashboardSidebar";
 
 const DashboardLayout = ({ children }) => {
   return (
-    <div className="flex">
-      <div className="">
-        <DashboardSidebar />
-      </div>
-      <div className="w-full">
+    <div className="flex min-h-screen bg-[#f8fafc] dark:bg-neutral-900/40">
+      <DashboardSidebar />
+
+      <div className="w-full flex flex-col min-w-0">
         <DashboardNavbar />
-        {children}
+        <div className="flex-1 p-4 md:p-6">{children}</div>
       </div>
     </div>
   );

@@ -19,6 +19,7 @@ import {
   RxPerson,
 } from "react-icons/rx";
 import ThemeSwitch from "../ThemeSwitch";
+import LogoutModal from "../auth/LogoutModal";
 
 const DashboardSidebar = () => {
   const pathName = usePathname();
@@ -178,21 +179,25 @@ const DashboardSidebar = () => {
           <FaAlignLeft />
         </Button>
 
-        <div className="hidden md:block bg-white dark:bg-neutral-950 min-h-screen pt-4 w-64 border-r border-gray-200 dark:border-neutral-800 transition-colors duration-300">
+        <div className="hidden md:flex flex-col bg-white dark:bg-neutral-950 h-screen pt-4 w-64 border-r border-gray-200 dark:border-neutral-800 transition-colors duration-300 sticky top-0 overflow-y-auto">
           <Link
             href="/"
-            className="font-bold text-3xl flex items-center justify-center tracking-tight"
+            className="font-bold text-3xl flex items-center justify-center tracking-tight shrink-0"
           >
             <h2 className="bg-linear-to-r from-green-600 dark:from-green-500 to-blue-600 dark:to-blue-500 bg-clip-text text-transparent font-black">
               FitBridge
             </h2>
           </Link>
 
-          <hr className="my-4 border-gray-100 dark:border-neutral-900" />
+          <hr className="my-4 border-gray-100 dark:border-neutral-900 shrink-0" />
 
           {profileCard}
 
-          {sideNav}
+          <div className="flex-1 overflow-y-auto">{sideNav}</div>
+
+          <div className="px-4 pb-4 mt-auto border-t border-gray-100 dark:border-neutral-900 pt-4">
+            <LogoutModal />
+          </div>
         </div>
 
         <Drawer.Backdrop>
@@ -203,7 +208,7 @@ const DashboardSidebar = () => {
             <Drawer.Dialog className="h-full flex flex-col pt-4">
               <Drawer.CloseTrigger className="top-4 right-4 text-gray-500 dark:text-neutral-400" />
 
-              <div className="px-5 mb-2 flex items-center justify-between pr-14">
+              <div className="px-5 mb-2 flex items-center justify-between pr-14 shrink-0">
                 <Link
                   href="/"
                   className="font-bold text-2xl tracking-tight block"
@@ -217,12 +222,17 @@ const DashboardSidebar = () => {
                 </div>
               </div>
 
-              <hr className="my-3 border-gray-100 dark:border-neutral-900 mx-4" />
+              <hr className="my-3 border-gray-100 dark:border-neutral-900 mx-4 shrink-0" />
 
-              <Drawer.Body className="p-0 flex-1 overflow-y-auto">
-                {profileCard}
+              <Drawer.Body className="p-0 flex-1 flex flex-col h-full overflow-hidden">
+                <div className="flex-1 overflow-y-auto">
+                  {profileCard}
+                  {sideNav}
+                </div>
 
-                {sideNav}
+                <div className="px-4 pb-4 mt-auto border-t border-gray-100 dark:border-neutral-900 pt-4 bg-white dark:bg-neutral-950">
+                  <LogoutModal />
+                </div>
               </Drawer.Body>
             </Drawer.Dialog>
           </Drawer.Content>
