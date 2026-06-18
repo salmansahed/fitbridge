@@ -14,7 +14,7 @@ const MyClassesPage = async () => {
   const userId = user?.id;
 
   if (!user || (user.role !== "trainer" && user.role !== "admin")) {
-    return redirect("/login");
+    return redirect("/forbidden");
   }
 
   const classData = await fetch(

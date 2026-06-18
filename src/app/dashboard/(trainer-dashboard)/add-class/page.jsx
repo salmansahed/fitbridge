@@ -9,7 +9,7 @@ const AddClassPage = async () => {
   });
   const user = session?.user;
   if (!user || user.role !== "trainer" && user.role !== "admin") {
-    return redirect("/login");
+    return redirect("/forbidden");
   }
   return (
     <div>
