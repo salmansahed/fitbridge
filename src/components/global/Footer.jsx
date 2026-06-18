@@ -12,8 +12,14 @@ import {
   FaEnvelope,
   FaArrowRight,
 } from "react-icons/fa6";
+import { usePathname } from "next/navigation";
 
 const Footer = () => {
+  const pathName = usePathname();
+  if (pathName.includes("dashboard")) {
+    return null;
+  }
+
   const socialLinks = [
     { icon: <FaXTwitter />, link: "#" },
     { icon: <FaInstagram />, link: "#" },
