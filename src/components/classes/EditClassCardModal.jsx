@@ -495,12 +495,6 @@ const EditClassCardModal = ({ classData }) => {
                       </Button>
                     </Fieldset.Actions>
                   </Fieldset>
-                  <Modal.Footer>
-                    <Button slot="close" variant="secondary">
-                      Cancel
-                    </Button>
-                    <Button slot="close">Send Message</Button>
-                  </Modal.Footer>
                 </Form>
               </Modal.Body>
             </Modal.Dialog>

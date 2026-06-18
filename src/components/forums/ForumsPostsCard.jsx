@@ -7,10 +7,20 @@ import {
 } from "react-icons/hi";
 import Link from "next/link";
 import { Button } from "@heroui/react";
+import DeleteForumPostModal from "./DeleteForumPostModal";
+import EditForumPostModal from "./EditForumPostModal";
 
-const ForumsPostsCard = ({ postData }) => {
-  const { _id, title, content, image, userRole, createdAt, userName } =
-    postData || {};
+const ForumsPostsCard = ({ postData, userId }) => {
+  const {
+    _id,
+    title,
+    content,
+    image,
+    userRole,
+    createdAt,
+    userName,
+    userId: postUserId,
+  } = postData || {};
 
   const likeCount = 1000;
   const commentCount = 1000;
@@ -25,7 +35,7 @@ const ForumsPostsCard = ({ postData }) => {
           fill
           unoptimized
           className="object-cover"
-          />
+        />
 
         {/* Role Badge */}
         {userRole && (
@@ -88,6 +98,12 @@ const ForumsPostsCard = ({ postData }) => {
             </Button>
           </Link>
         </div>
+        {userId === postUserId && (
+          <div className="flex items-center justify-between gap-2 border-t border-neutral-200 dark:border-neutral-800 pt-2">
+            <EditForumPostModal postData={postData} />
+            <DeleteForumPostModal postData={postData} />
+          </div>
+        )}
       </div>
     </div>
   );
