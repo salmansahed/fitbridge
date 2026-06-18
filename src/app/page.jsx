@@ -1,5 +1,7 @@
 import BMICalculator from "@/components/home/BMICalculator";
 import CorePillars from "@/components/home/CorePillars";
+import CTACommunity from "@/components/home/CTACommunity";
+import CTAInteractive from "@/components/home/CTACommunity";
 import HeroBanner from "@/components/home/HeroBanner";
 
 export default function Home() {
@@ -8,6 +10,7 @@ export default function Home() {
       <HeroBanner />
       <CorePillars />
       <BMICalculator />
+      <CTACommunity />
     </div>
   );
 }
