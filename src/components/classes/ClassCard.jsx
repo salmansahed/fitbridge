@@ -3,8 +3,10 @@ import { HiOutlineClock, HiOutlineCalendar } from "react-icons/hi";
 import { FiArrowUpRight } from "react-icons/fi";
 import { Button } from "@heroui/react";
 import Link from "next/link";
+import EditClassCardModal from "./EditClassCardModal";
+import DeleteClassModal from "./DeleteClassModal";
 
-const ClassCard = ({ classData }) => {
+const ClassCard = ({ classData, userId }) => {
   const {
     _id,
     image,
@@ -18,6 +20,7 @@ const ClassCard = ({ classData }) => {
     userName,
     userImage,
     description,
+    userId: classUserId,
   } = classData;
 
   return (
@@ -115,6 +118,15 @@ const ClassCard = ({ classData }) => {
           </Button>
         </Link>
       </div>
+      {userId === classUserId && (
+        <div className="flex items-center justify-between gap-2 border-t border-neutral-200 dark:border-neutral-800 pt-2">
+          {/* Edit Button */}
+          <EditClassCardModal classData={classData} />
+
+          {/* Delete Button */}
+          <DeleteClassModal classData={classData} />
+        </div>
+      )}
     </div>
   );
 };
