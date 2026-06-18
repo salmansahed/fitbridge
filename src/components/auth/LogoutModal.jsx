@@ -22,9 +22,10 @@ const LogoutModal = () => {
     <div>
       <AlertDialog>
         <Button
-          variant="danger"
-          className="font-bold rounded-md shadow-xs active:scale-98"
+          variant="outline"
+          className="font-bold rounded-md hover:rounded-3xl hover:bg-danger hover:text-white shadow-xs active:scale-98 text-danger transition-all duration-300 border border-danger hover:border-danger w-full"
         >
+          Logout
           <FiLogOut />
         </Button>
         <AlertDialog.Backdrop>
