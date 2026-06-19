@@ -21,7 +21,6 @@ import Image from "next/image";
 import { toast } from "react-toastify";
 import useImageUpload from "@/lib/image-upload/useImageUpload";
 import { MdDeleteForever, MdDriveFolderUpload } from "react-icons/md";
-import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 
 const AddClassForm = ({ user }) => {
