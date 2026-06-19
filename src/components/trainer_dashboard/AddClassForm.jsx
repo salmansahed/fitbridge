@@ -341,7 +341,7 @@ const AddClassForm = () => {
                   Duration
                 </Label>
                 <Input
-                  type="text"
+                  type="number"
                   placeholder="e.g. 60 mins"
                   className="w-full border border-gray-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 rounded-xl px-4 py-2 text-sm focus-within:border-green-500 transition-all"
                 />
