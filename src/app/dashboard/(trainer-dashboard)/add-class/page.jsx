@@ -13,7 +13,7 @@ const AddClassPage = async () => {
   }
   return (
     <div>
-      <AddClassForm />
+      <AddClassForm user={user} />
     </div>
   );
 };

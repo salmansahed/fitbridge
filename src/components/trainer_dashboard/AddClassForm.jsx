@@ -24,7 +24,7 @@ import { MdDeleteForever, MdDriveFolderUpload } from "react-icons/md";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 
-const AddClassForm = () => {
+const AddClassForm = ({ user }) => {
   const router = useRouter();
   const [selectedDays, setSelectedDays] = useState([]);
   const [photoRequiredError, setPhotoRequiredError] = useState("");
@@ -69,9 +69,6 @@ const AddClassForm = () => {
   const handleBtnPress = () => {
     fileInputRef.current?.click();
   };
-
-  const { data: session } = authClient.useSession();
-  const user = session?.user;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
