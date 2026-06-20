@@ -15,17 +15,15 @@ const CategoryFilter = () => {
   ];
 
   const handleCategoryChange = (value) => {
-    console.log("Selected category:", value);
     const params = new URLSearchParams(searchParams);
-    console.log("params =>", params);
     params.set("category", value);
     router.push(`?${params.toString()}`);
   };
 
   return (
-    <div className="w-[256px]">
+    <div>
       <Select
-        className="w-[256px]"
+        className="w-full md:w-[256px]"
         placeholder="Select one"
         onChange={handleCategoryChange}
       >

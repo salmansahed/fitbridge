@@ -76,7 +76,6 @@ const EditForumPostModal = ({ postData }) => {
       image: finalImageUrl,
     };
 
-    console.log("Final submission data:", finalSubmissionData);
 
     try {
       const res = await fetch(
@@ -91,7 +90,6 @@ const EditForumPostModal = ({ postData }) => {
       );
 
       const data = await res.json();
-      console.log("data response ?", data);
 
       if (data.modifiedCount > 0) {
         toast.success("Forum post updated successfully!");

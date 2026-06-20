@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { HiOutlineFolderOpen, HiPlus } from "react-icons/hi";
 import { Button } from "@heroui/react";
-import { PaginationWithSummary } from "@/components/pagination/PaginationWithSummary";
+import PaginationWithSummary from "@/components/pagination/PaginationWithSummary";
 
 const MyClassesPage = async ({ searchParams }) => {
   const session = await auth.api.getSession({
@@ -50,7 +50,7 @@ const MyClassesPage = async ({ searchParams }) => {
         </div>
 
         {hasClasses ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center">
             {classes.map((classItem) => (
               <ClassCard
                 key={classItem._id}

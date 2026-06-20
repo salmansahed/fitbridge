@@ -4,14 +4,13 @@ import React, { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Label, SearchField } from "@heroui/react";
 
-const ClassSearchBox = () => {
+const SearchBox = ({label, placeholder}) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const currentSearchUrl = searchParams.get("search") || "";
 
   const [inputValue, setInputValue] = useState(currentSearchUrl);
-  console.log("inputValue?", inputValue);
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
@@ -35,14 +34,14 @@ const ClassSearchBox = () => {
   return (
     <div>
       <SearchField name="search">
-        <Label>Search Your Perfect Class</Label>
+        <Label>{label}</Label>
         <SearchField.Group className="border border-gray-300 dark:border-gray-600 h-12">
           <SearchField.SearchIcon />
           <SearchField.Input
             onChange={(e) => setInputValue(e.target.value)}
             value={inputValue}
             className="w-70"
-            placeholder="Search classes by name..."
+            placeholder={placeholder}
           />
           <SearchField.ClearButton />
         </SearchField.Group>
@@ -51,4 +50,4 @@ const ClassSearchBox = () => {
   );
 };
 
-export default ClassSearchBox;
+export default SearchBox;

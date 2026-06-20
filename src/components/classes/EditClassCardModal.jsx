@@ -125,7 +125,6 @@ const EditClassCardModal = ({ classData }) => {
       userImage,
     };
 
-    console.log("Final submission data:", finalSubmissionData);
 
     try {
       const res = await fetch(
@@ -140,7 +139,6 @@ const EditClassCardModal = ({ classData }) => {
       );
 
       const data = await res.json();
-      console.log("data response ?", data);
 
       if (data.modifiedCount > 0) {
         toast.success("Class updated successfully!");
