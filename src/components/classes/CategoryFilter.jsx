@@ -1,0 +1,56 @@
+"use client";
+import { Label, Select } from "@heroui/react";
+import { ListBox } from "@heroui/react";
+import { useRouter, useSearchParams } from "next/navigation";
+
+const CategoryFilter = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const CATEGORIES = [
+    { id: "all", label: "All Categories" },
+    { id: "Strength", label: "Strength" },
+    { id: "Cardio", label: "Cardio" },
+    { id: "Pilates", label: "Pilates" },
+    { id: "Yoga", label: "Yoga" },
+  ];
+
+  const handleCategoryChange = (value) => {
+    console.log("Selected category:", value);
+    const params = new URLSearchParams(searchParams);
+    console.log("params =>", params);
+    params.set("category", value);
+    router.push(`?${params.toString()}`);
+  };
+
+  return (
+    <div className="w-[256px]">
+      <Select
+        className="w-[256px]"
+        placeholder="Select one"
+        onChange={handleCategoryChange}
+      >
+        <Label>Search by Category</Label>
+        <Select.Trigger className="border border-gray-300 dark:border-gray-600 py-3.5">
+          <Select.Value />
+          <Select.Indicator />
+        </Select.Trigger>
+        <Select.Popover>
+          <ListBox>
+            {CATEGORIES.map((category) => (
+              <ListBox.Item
+                key={category.id}
+                id={category.id}
+                textValue={category.label}
+              >
+                {category.label}
+                <ListBox.ItemIndicator />
+              </ListBox.Item>
+            ))}
+          </ListBox>
+        </Select.Popover>
+      </Select>
+    </div>
+  );
+};
+
+export default CategoryFilter;
