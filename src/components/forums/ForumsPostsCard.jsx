@@ -10,7 +10,17 @@ import { Button } from "@heroui/react";
 import DeleteForumPostModal from "./DeleteForumPostModal";
 import EditForumPostModal from "./EditForumPostModal";
 
-const ForumsPostsCard = ({ postData, userId }) => {
+const ForumsPostsCard = async ({ postData, userId }) => {
+  const likeRes = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/forum-posts/${postData._id}/reaction-status`,
+    {
+      cache: "no-store",
+    },
+  );
+  const likeData = await likeRes.json();
+  const likeStatus = likeData?.likesCount || 0;
+  console.log("Like status:", likeStatus);
+
   const {
     _id,
     title,
@@ -22,7 +32,7 @@ const ForumsPostsCard = ({ postData, userId }) => {
     userId: postUserId,
   } = postData || {};
 
-  const likeCount = 1000;
+  const likeCount = likeStatus;
   const commentCount = 1000;
 
   return (

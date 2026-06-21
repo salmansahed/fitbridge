@@ -42,7 +42,7 @@ const Navbar = () => {
             <Link
               key={link.href}
               href={link.href}
-              className={`hover:text-blue-700 dark:hover:text-blue-500 transition-all duration-200 text-sm lg:text-base hidden md:block ${
+              className={`hover:text-blue-700 dark:hover:text-blue-500 transition-all duration-200 text-sm lg:text-base hidden md:block select-none ${
                 pathName === link.href
                   ? "text-green-700 dark:text-green-500 underline underline-offset-3 decoration-blue-700 dark:decoration-green-500"
                   : ""
@@ -120,7 +120,7 @@ const Navbar = () => {
                 onClick={() => setOpen(false)}
                 key={link.href}
                 href={link.href}
-                className="block py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
+                className="block py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600 select-none"
               >
                 {link.name}
               </Link>

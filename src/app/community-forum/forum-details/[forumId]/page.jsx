@@ -1,16 +1,17 @@
 import React from "react";
-import { Card, Avatar, Chip, Button, TextArea } from "@heroui/react";
+import { Card, Chip, Button, TextArea } from "@heroui/react";
 import {
   HiOutlineArrowLeft,
   HiOutlineCalendar,
   HiOutlineExclamation,
   HiOutlinePhotograph,
 } from "react-icons/hi";
-import { BiLike, BiDislike, BiShareAlt } from "react-icons/bi";
 import Link from "next/link";
 import Image from "next/image";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import ForumDetailsShareBtn from "@/components/forum-details/ForumDetailsShareBtn";
+import ReactionSection from "@/components/forum-details/ReactionSection";
 
 const ForumDetailsPage = async ({ params }) => {
   const { forumId } = await params;
@@ -145,34 +146,11 @@ const ForumDetailsPage = async ({ params }) => {
           {/* Reaction Buttons */}
           <div className="flex items-center justify-between py-4 border-y border-slate-200 dark:border-neutral-700">
             <div className="flex items-center gap-3">
-              {/* Like Button */}
-              <Button
-                size="md"
-                className="bg-slate-200/60 dark:bg-neutral-800 hover:bg-green-100 dark:hover:bg-green-950/30 text-slate-800 dark:text-neutral-200 font-semibold gap-2"
-              >
-                <BiLike className="text-xl text-green-500" />{" "}
-                <span>Helpful (12)</span>
-              </Button>
-
-              {/* Dislike Button */}
-              <Button
-                size="md"
-                className="bg-slate-200/60 dark:bg-neutral-800 hover:bg-danger-50 dark:hover:bg-danger-950/20 text-slate-800 dark:text-neutral-200 font-semibold gap-2"
-              >
-                <BiDislike className="text-xl text-danger" />{" "}
-                <span>Not Helpful</span>
-              </Button>
+              {/* Reaction Buttons */}
+              <ReactionSection forumId={forumId} />
             </div>
 
-            <Button
-              size="md"
-              variant="flat"
-              radius="full"
-              startContent={<BiShareAlt className="text-lg" />}
-              className="bg-slate-200/60 dark:bg-neutral-800 text-slate-600 dark:text-neutral-300 font-medium"
-            >
-              Share
-            </Button>
+            <ForumDetailsShareBtn />
           </div>
 
           {/* Comment Section */}
