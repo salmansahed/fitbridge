@@ -92,7 +92,7 @@ const ForumsPostsCard = ({ postData, userId }) => {
           </div>
 
           {/* Read More Button */}
-          <Link href={`/forum-details/${_id}`}>
+          <Link href={`/community-forum/forum-details/${_id}`}>
             <Button className="px-4 py-1.5 bg-[#f4f9ed] dark:bg-[#1a2412] hover:bg-[#e9f4dc] border border-[#d2ebaf] dark:border-[#38531a] text-[#72c113] text-xs font-bold rounded-lg transition-all duration-200 cursor-pointer active:scale-95">
               Read More
             </Button>
