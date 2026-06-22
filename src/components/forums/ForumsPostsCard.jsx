@@ -44,7 +44,7 @@ const ForumsPostsCard = async ({ postData, userId }) => {
   const commentCount = totalCommentsCount;
 
   return (
-    <div className="w-full max-w-90 bg-white dark:bg-neutral-950 border border-neutral-300 dark:border-neutral-800 rounded-2xl overflow-hidden shadow-xs hover:shadow-md transition-shadow duration-300 flex flex-col">
+    <div className="w-full max-w-90 bg-white dark:bg-neutral-950 border border-neutral-300 dark:border-neutral-800 rounded-2xl overflow-hidden shadow-xs hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 flex flex-col hover:border-green-500 dark:hover:border-green-700">
       {/* Image Section with Role Badge */}
       <div className="relative w-full h-48 bg-neutral-100 dark:bg-neutral-900 shrink-0">
         <Image

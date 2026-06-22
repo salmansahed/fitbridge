@@ -5,6 +5,8 @@ import { Button } from "@heroui/react";
 import Link from "next/link";
 import EditClassCardModal from "./EditClassCardModal";
 import DeleteClassModal from "./DeleteClassModal";
+import { CiUser } from "react-icons/ci";
+import { FaRegUser } from "react-icons/fa6";
 
 const ClassCard = ({ classData, userId }) => {
   const {
@@ -23,8 +25,9 @@ const ClassCard = ({ classData, userId }) => {
     userId: classUserId,
   } = classData;
 
+  const totalBookings = 11;
   return (
-    <div className="group w-full max-w-95 bg-white dark:bg-neutral-950 border border-neutral-200/60 dark:border-neutral-700 rounded-2xl p-4 shadow-xs hover:shadow-xl hover:border-green-500/40 dark:hover:border-green-500/30 transition-all duration-300 flex flex-col gap-4">
+    <div className="group w-full max-w-95 bg-white dark:bg-neutral-950 border border-neutral-200/60 dark:border-neutral-700 rounded-2xl p-4 shadow-xs hover:shadow-2xl hover:border-green-500/40 hover:-translate-y-2 dark:hover:border-green-500/30 transition-all duration-300 flex flex-col gap-4">
       {/* Image Section with glass badge */}
       <div className="relative w-full h-48 rounded-xl overflow-hidden bg-neutral-100 dark:bg-neutral-900">
         <Image
@@ -56,19 +59,23 @@ const ClassCard = ({ classData, userId }) => {
         <h3 className="text-base font-bold text-neutral-800 dark:text-neutral-100 line-clamp-1 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">
           {name}
         </h3>
-
         {/* Description */}
         <p className="text-xs text-neutral-500 dark:text-neutral-400 line-clamp-2 leading-relaxed">
           {description}
         </p>
 
         {/* Duration, Time and Schedule Grid (Icon included) */}
-        <div className="grid grid-cols-2 gap-2 my-1 pt-2 border-t border-dashed border-neutral-100 dark:border-neutral-900 text-[11px] text-neutral-500 dark:text-neutral-400">
+        <div className="flex items-center justify-between gap-4 my-1 pt-2 border-t border-dashed border-neutral-100 dark:border-neutral-900 text-[11px] text-neutral-500 dark:text-neutral-400">
           <div className="flex items-center gap-1.5">
             <HiOutlineClock className="text-sm text-green-500" />
             <span>
-              {duration} mins / {startTime}
+              {duration} mins / {startTime}{" "}
+              {parseInt(startTime) >= 12 ? "PM" : "AM"}
             </span>
+          </div>
+          <div className="flex items-center gap-1 text-xs font-bold text-neutral-500 dark:text-neutral-400">
+            <FaRegUser className="text-sm text-green-500" />{" "}
+            <span>{totalBookings}</span>
           </div>
           <div className="flex items-center gap-1.5">
             <HiOutlineCalendar className="text-sm text-green-500" />
