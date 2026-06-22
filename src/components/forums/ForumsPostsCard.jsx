@@ -11,16 +11,6 @@ import DeleteForumPostModal from "./DeleteForumPostModal";
 import EditForumPostModal from "./EditForumPostModal";
 
 const ForumsPostsCard = async ({ postData, userId }) => {
-  const likeRes = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/forum-posts/${postData._id}/reaction-status`,
-    {
-      cache: "no-store",
-    },
-  );
-  const likeData = await likeRes.json();
-  const likeStatus = likeData?.likesCount || 0;
-  console.log("Like status:", likeStatus);
-
   const {
     _id,
     title,
@@ -32,8 +22,26 @@ const ForumsPostsCard = async ({ postData, userId }) => {
     userId: postUserId,
   } = postData || {};
 
+  const likeRes = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/forum-posts/${_id}/reaction-status`,
+    {
+      cache: "no-store",
+    },
+  );
+  const likeData = await likeRes.json();
+  const likeStatus = likeData?.likesCount || 0;
+
+  const commentCountRes = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/forum-comments/count/${_id}`,
+    {
+      cache: "no-store",
+    },
+  );
+  const commentCountData = await commentCountRes.json();
+  const totalCommentsCount = commentCountData?.commentCount || 0;
+
   const likeCount = likeStatus;
-  const commentCount = 1000;
+  const commentCount = totalCommentsCount;
 
   return (
     <div className="w-full max-w-90 bg-white dark:bg-neutral-950 border border-neutral-300 dark:border-neutral-800 rounded-2xl overflow-hidden shadow-xs hover:shadow-md transition-shadow duration-300 flex flex-col">

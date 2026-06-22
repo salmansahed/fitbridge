@@ -12,6 +12,7 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import ForumDetailsShareBtn from "@/components/forum-details/ForumDetailsShareBtn";
 import ReactionSection from "@/components/forum-details/ReactionSection";
+import DiscussionHub from "@/components/forum-details/DiscussionHub";
 
 const ForumDetailsPage = async ({ params }) => {
   const { forumId } = await params;
@@ -153,38 +154,7 @@ const ForumDetailsPage = async ({ params }) => {
             <ForumDetailsShareBtn />
           </div>
 
-          {/* Comment Section */}
-          <Card className="p-6 bg-white dark:bg-neutral-900 shadow-xl rounded-3xl border border-slate-200 dark:border-neutral-700 mt-12">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                Discussion Hub
-              </h3>
-              <Chip color="primary" className="font-semibold">
-                0 Thoughts
-              </Chip>
-            </div>
-
-            <div className="flex gap-4 items-start">
-              <Image
-                src={user?.image}
-                alt={user?.name}
-                width={40}
-                height={40}
-                className="rounded-full object-cover border-2 border-green-500"
-              />
-              <div className="w-full space-y-4">
-                <TextArea
-                  placeholder="What are your thoughts on this fitness insight? Write an educated response..."
-                  className="w-full h-28 p-4 rounded-2xl bg-slate-50 dark:bg-neutral-950 border border-slate-200 dark:border-neutral-700 text-base focus:outline-none focus:ring-2 focus:ring-green-500/30 dark:focus:ring-blue-500/20 resize-none transition-all dark:text-white"
-                />
-                <div className="flex justify-end">
-                  <Button className="font-bold text-white bg-linear-to-r from-green-600 to-blue-600 shadow-xl shadow-green-600/20 rounded-full ">
-                    Publish Comment
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </Card>
+          <DiscussionHub forumId={forumId} currentUser={user} />
         </article>
       </div>
     </div>

@@ -418,11 +418,10 @@ const AddClassForm = ({ user }) => {
                 <TextField
                   isRequired
                   name="startTime"
-                  type="time"
                   className="w-full"
                 >
                   <Label className="sr-only">Start Time</Label>
-                  <Input className="w-full border border-gray-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 rounded-xl px-4 py-2 text-sm text-gray-700 dark:text-neutral-200 focus-within:border-green-500 transition-all" />
+                  <Input type="time" className="w-full border border-gray-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 rounded-xl px-4 py-2 text-sm text-gray-700 dark:text-neutral-200 focus-within:border-green-500 transition-all" />
                   <FieldError className="text-xs text-red-500 mt-1" />
                 </TextField>
               </div>
