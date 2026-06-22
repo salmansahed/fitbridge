@@ -46,7 +46,10 @@ const DashboardPage = async () => {
       },
     },
   );
-  const [applicationData] = await applicationRes.json();
+  const appData = await applicationRes.json();
+
+  const applicationData =
+    Array.isArray(appData) && appData.length > 0 ? appData[0] : null;
 
   const totalEnrolledStudentsCountRes = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/subscriptions/total-enrolled/${userId}`,
