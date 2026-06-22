@@ -5,7 +5,6 @@ import { Button } from "@heroui/react";
 import Link from "next/link";
 import EditClassCardModal from "./EditClassCardModal";
 import DeleteClassModal from "./DeleteClassModal";
-import { CiUser } from "react-icons/ci";
 import { FaRegUser } from "react-icons/fa6";
 
 const ClassCard = async ({ classData, userId }) => {

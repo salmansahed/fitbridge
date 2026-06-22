@@ -1,6 +1,8 @@
 "use client";
 
 import { Button } from "@heroui/react";
+import { useState } from "react";
+import { FaHeart, FaRegHeart } from "react-icons/fa6";
 import { toast } from "react-toastify";
 
 const PaymentButton = ({
@@ -9,7 +11,9 @@ const PaymentButton = ({
   classId,
   userEmail,
   alreadyBookedStatus,
+  userId,
 }) => {
+  const [isFavorited, setIsFavorited] = useState(false);
   const handleCheckout = async () => {
     try {
       const response = await fetch("/api/checkout", {
@@ -37,20 +41,71 @@ const PaymentButton = ({
     });
   };
 
-  return alreadyBookedStatus ? (
-    <Button
-      onClick={handleAlreadyBookedClick}
-      className="w-full bg-gray-500 hover:bg-gray-600 text-white py-6 rounded-xl text-xs font-bold uppercase tracking-wider shadow-md shadow-gray-500/5 hover:shadow-lg transition-all duration-200 active:scale-98 cursor-not-allowed"
-    >
-      Already Booked
-    </Button>
-  ) : (
-    <Button
-      onClick={handleCheckout}
-      className="w-full bg-[#72c113] hover:bg-[#63aa10] text-white py-6 rounded-xl text-xs font-bold uppercase tracking-wider shadow-md shadow-green-500/5 hover:shadow-lg transition-all duration-200 cursor-pointer active:scale-98"
-    >
-      Book Now — $ {classPrice}
-    </Button>
+  const handleFavoriteToggle = async () => {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/favorites`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId, classId: classId[0] }),
+        },
+      );
+
+      const data = await res.json();
+
+      if (data.success) {
+        setIsFavorited(data.isFavorited);
+
+        if (data.isFavorited) {
+          toast.success("Added to Favorites");
+        } else {
+          toast.error("Removed from Favorites");
+        }
+      }
+    } catch (error) {
+      toast.error("Something went wrong!");
+    }
+  };
+
+  return (
+    <div className="space-y-4">
+      {alreadyBookedStatus ? (
+        <Button
+          onClick={handleAlreadyBookedClick}
+          className="w-full bg-gray-500 hover:bg-gray-600 text-white py-6 rounded-xl font-bold uppercase tracking-wider shadow-md shadow-gray-500/5 hover:shadow-lg transition-all duration-200 active:scale-98 cursor-not-allowed"
+        >
+          Already Booked
+        </Button>
+      ) : (
+        <Button
+          onClick={handleCheckout}
+          className="w-full bg-[#72c113] hover:bg-[#63aa10] text-white py-6 rounded-xl font-bold uppercase tracking-wider shadow-md shadow-green-500/5 hover:shadow-lg transition-all duration-200 cursor-pointer active:scale-98"
+        >
+          Book Now — $ {classPrice}
+        </Button>
+      )}
+      <Button
+        onClick={handleFavoriteToggle}
+        className={`w-full py-6 rounded-xl font-bold uppercase tracking-wider transition-all ${
+          isFavorited
+            ? "bg-red-50 text-red-500 border border-red-500 dark:border-red-500"
+            : "bg-white text-black border border-gray-300 hover:bg-gray-100"
+        }`}
+      >
+        {isFavorited ? (
+          <>
+            <FaHeart className="text-red-500" />
+            <span>Favorited</span>
+          </>
+        ) : (
+          <>
+            <FaRegHeart className="text-gray-500" />
+            <span>Add to Favorites</span>
+          </>
+        )}
+      </Button>
+    </div>
   );
 };
 

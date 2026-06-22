@@ -306,6 +306,7 @@ const ClassDetailsPage = async ({ params }) => {
                 classId={classId}
                 userEmail={userEmail}
                 alreadyBookedStatus={alreadyBookedStatus}
+                userId={userId}
               />
             </div>
           </div>
