@@ -15,6 +15,8 @@ import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa6";
 import userAvatar from "../../../assets/images/useravatar.png";
 import PaymentButton from "./PaymentButton";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 const ClassDetailsPage = async ({ params }) => {
   const { classId } = await params;
@@ -61,7 +63,34 @@ const ClassDetailsPage = async ({ params }) => {
       })()
     : "N/A";
 
-  const totalBookedStudents = 12;
+  const totalBookingsCountRes = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/subscriptions/count/${classId}`,
+    { cache: "no-store" },
+  );
+  const { bookingCount } = await totalBookingsCountRes.json();
+
+  const totalBookedStudents = bookingCount || 0;
+
+  const session = await auth.api.getSession({
+    headers: await headers(), // you need to pass the headers object.
+  });
+  const userId = session?.user?.id;
+
+  const allredyBookedRes = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/subscriptions/${userId}/classes/${classId}`,
+    { cache: "no-store" },
+  );
+  const { success, subscription } = await allredyBookedRes.json();
+  const { classId: subscriptionId, userId: subscriptionUserId } =
+    subscription || {};
+  let alreadyBookedStatus = false;
+  if (
+    success &&
+    subscriptionId === classId[0] &&
+    subscriptionUserId === userId
+  ) {
+    alreadyBookedStatus = true;
+  }
 
   return (
     <div className="py-28 bg-neutral-50 dark:bg-neutral-950 min-h-screen transition-colors duration-300">
@@ -99,6 +128,9 @@ const ClassDetailsPage = async ({ params }) => {
 
             {/* General description text block */}
             <div className="bg-white dark:bg-neutral-900 border border-neutral-200/60 dark:border-neutral-800/80 rounded-2xl p-6 md:p-8 shadow-2xs">
+              <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-4">
+                {name}
+              </h2>
               <h3 className="text-xs font-black text-neutral-400 uppercase tracking-widest mb-3 flex items-center gap-1.5">
                 📖 About This Class
               </h3>
@@ -273,6 +305,7 @@ const ClassDetailsPage = async ({ params }) => {
                 classPrice={price}
                 classId={classId}
                 userEmail={userEmail}
+                alreadyBookedStatus={alreadyBookedStatus}
               />
             </div>
           </div>

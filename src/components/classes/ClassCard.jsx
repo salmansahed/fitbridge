@@ -8,7 +8,7 @@ import DeleteClassModal from "./DeleteClassModal";
 import { CiUser } from "react-icons/ci";
 import { FaRegUser } from "react-icons/fa6";
 
-const ClassCard = ({ classData, userId }) => {
+const ClassCard = async ({ classData, userId }) => {
   const {
     _id,
     image,
@@ -25,7 +25,13 @@ const ClassCard = ({ classData, userId }) => {
     userId: classUserId,
   } = classData;
 
-  const totalBookings = 11;
+  const totalBookingsCountRes = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/subscriptions/count/${_id}`,
+    { cache: "no-store" },
+  );
+  const { bookingCount } = await totalBookingsCountRes.json();
+  const totalBookings = bookingCount || 0;
+
   return (
     <div className="group w-full max-w-95 bg-white dark:bg-neutral-950 border border-neutral-200/60 dark:border-neutral-700 rounded-2xl p-4 shadow-xs hover:shadow-2xl hover:border-green-500/40 hover:-translate-y-2 dark:hover:border-green-500/30 transition-all duration-300 flex flex-col gap-4">
       {/* Image Section with glass badge */}
