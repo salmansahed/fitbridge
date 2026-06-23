@@ -1,4 +1,6 @@
+"use client";
 import { Button } from "@heroui/react";
+import { motion } from "framer-motion";
 import {
   RiFlashlightLine,
   RiArrowRightUpLine,
@@ -9,7 +11,13 @@ import {
 
 const CTACommunity = () => {
   return (
-    <section className="py-20 dark:bg-black relative overflow-hidden">
+    <motion.section
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 1.2, ease: "easeOut" }}
+      className="py-20 dark:bg-black relative overflow-hidden"
+    >
       <div className="container mx-auto px-3">
         {/* Full-width Premium Card Container */}
         <div className="relative rounded-3xl border border-gray-200/80 dark:border-neutral-800/60 bg-linear-to-br from-gray-50 via-white to-gray-50/50 dark:from-neutral-900/90 dark:via-neutral-950 dark:to-neutral-900/40 p-8 md:p-12 lg:p-16 shadow-2xl overflow-hidden group">
@@ -90,13 +98,14 @@ const CTACommunity = () => {
                 variant="outline"
                 className="font-bold text-gray-800 dark:text-gray-200 border-gray-200 dark:border-neutral-800 dark:hover:bg-neutral-900 rounded-md hover:rounded-3xl px-8 py-6 text-base transition-all duration-200 group/btn2"
               >
-                Explore Classes <RiFlashlightLine className="text-lg group-hover/btn2:scale-150 transition-all duration-300" />
+                Explore Classes{" "}
+                <RiFlashlightLine className="text-lg group-hover/btn2:scale-150 transition-all duration-300" />
               </Button>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

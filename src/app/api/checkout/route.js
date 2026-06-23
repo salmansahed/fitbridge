@@ -7,7 +7,15 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export async function POST(request) {
   try {
-    const { className, classPrice, classId, userEmail } = await request.json();
+    const {
+      className,
+      classPrice,
+      classId,
+      formattedTime,
+      scheduleDays,
+      authorName,
+      authorRole,
+    } = await request.json();
     if (!className || !classPrice) {
       return NextResponse.json(
         { error: "Missing required product details" },
@@ -60,6 +68,10 @@ export async function POST(request) {
         price: classPrice,
         userEmail: user?.email,
         userId: user?.id,
+        authorRole: authorRole,
+        startTime: formattedTime,
+        scheduleDays: JSON.stringify(scheduleDays),
+        authorName: authorName,
       },
       mode: "payment",
       success_url: `${baseUrl}/payment-success?session_id={CHECKOUT_SESSION_ID}`,

@@ -12,6 +12,11 @@ const PaymentButton = ({
   userEmail,
   alreadyBookedStatus,
   userId,
+  formattedTime,
+  scheduleDays,
+  userRole,
+  currentUserRole,
+  userName,
 }) => {
   const [isFavorited, setIsFavorited] = useState(false);
   const handleCheckout = async () => {
@@ -19,7 +24,16 @@ const PaymentButton = ({
       const response = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ className, classPrice, classId, userEmail }),
+        body: JSON.stringify({
+          className,
+          classPrice,
+          classId,
+          userEmail,
+          formattedTime,
+          scheduleDays,
+          authorName: userName,
+          authorRole: userRole,
+        }),
       });
 
       if (!response.ok) {
@@ -70,7 +84,14 @@ const PaymentButton = ({
 
   return (
     <div className="space-y-4">
-      {alreadyBookedStatus ? (
+      {userRole === currentUserRole ? (
+        <Button
+          isDisabled
+          className="w-full py-6 rounded-md uppercase bg-danger"
+        >
+          Class Booking for Users Only
+        </Button>
+      ) : alreadyBookedStatus ? (
         <Button
           onClick={handleAlreadyBookedClick}
           className="w-full bg-gray-500 hover:bg-gray-600 text-white py-6 rounded-xl font-bold uppercase tracking-wider shadow-md shadow-gray-500/5 hover:shadow-lg transition-all duration-200 active:scale-98 cursor-not-allowed"
@@ -85,26 +106,31 @@ const PaymentButton = ({
           Book Now — $ {classPrice}
         </Button>
       )}
-      <Button
-        onClick={handleFavoriteToggle}
-        className={`w-full py-6 rounded-xl font-bold uppercase tracking-wider transition-all ${
-          isFavorited
-            ? "bg-red-50 text-red-500 border border-red-500 dark:border-red-500"
-            : "bg-white text-black border border-gray-300 hover:bg-gray-100"
-        }`}
-      >
-        {isFavorited ? (
-          <>
-            <FaHeart className="text-red-500" />
-            <span>Favorited</span>
-          </>
-        ) : (
-          <>
-            <FaRegHeart className="text-gray-500" />
-            <span>Add to Favorites</span>
-          </>
-        )}
-      </Button>
+
+      {userRole === currentUserRole ? (
+        ""
+      ) : (
+        <Button
+          onClick={handleFavoriteToggle}
+          className={`w-full py-6 rounded-xl font-bold uppercase tracking-wider transition-all ${
+            isFavorited
+              ? "bg-red-50 text-red-500 border border-red-500 dark:border-red-500"
+              : "bg-white text-black border border-gray-300 hover:bg-gray-100"
+          }`}
+        >
+          {isFavorited ? (
+            <>
+              <FaHeart className="text-red-500" />
+              <span>Favorited</span>
+            </>
+          ) : (
+            <>
+              <FaRegHeart className="text-gray-500" />
+              <span>Add to Favorites</span>
+            </>
+          )}
+        </Button>
+      )}
     </div>
   );
 };

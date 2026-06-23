@@ -11,7 +11,7 @@ export default async function PaymentSuccessPage({ searchParams }) {
   if (!session_id) return redirect("/");
 
   const session = await stripe.checkout.sessions.retrieve(session_id, {
-    expand: ["invoice"],
+    expand: ["payment_intent.latest_charge"],
   });
 
   const {
@@ -19,16 +19,26 @@ export default async function PaymentSuccessPage({ searchParams }) {
     customer_details,
     amount_total,
     payment_intent,
-    invoice,
     created,
     status,
   } = session;
 
-  const { className, classId, userId } = metadata || {};
+  const {
+    className,
+    classId,
+    userId,
+    startTime,
+    scheduleDays,
+    authorRole,
+    authorName,
+  } = metadata || {};
+
+  const parsedScheduleDays = scheduleDays ? JSON.parse(scheduleDays) : [];
   const { email } = customer_details || {};
 
-  const invoiceUrl =
-    typeof invoice === "object" ? invoice?.hosted_invoice_url : null;
+  const invoiceUrl = payment_intent?.latest_charge?.receipt_url || null;
+
+  const transactionId = payment_intent?.id || "N/A";
 
   const paymentDate = new Date(created * 1000).toLocaleDateString("en-US", {
     year: "numeric",
@@ -40,7 +50,6 @@ export default async function PaymentSuccessPage({ searchParams }) {
     hour: "2-digit",
     minute: "2-digit",
   });
-  console.log("Check ??", paymentDate);
 
   const finalDataForDatabase = {
     classId,
@@ -51,10 +60,15 @@ export default async function PaymentSuccessPage({ searchParams }) {
     userId,
     paymentTime,
     paymentDate,
-    transactionId: payment_intent,
+    transactionId,
+    startTime,
+    scheduleDays: parsedScheduleDays,
+    authorRole,
+    authorName,
+    invoiceUrl,
   };
 
-  if (status == "complete") {
+  if (status === "complete") {
     await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/subscriptions`, {
       method: "POST",
       headers: {
@@ -91,7 +105,7 @@ export default async function PaymentSuccessPage({ searchParams }) {
               Transaction ID
             </span>
             <span className="font-mono text-[10px] text-neutral-600 dark:text-neutral-300">
-              {payment_intent}
+              {transactionId}
             </span>
           </div>
 
@@ -125,7 +139,7 @@ export default async function PaymentSuccessPage({ searchParams }) {
           {invoiceUrl && (
             <div className="flex justify-between items-center text-xs">
               <span className="font-bold text-neutral-400 dark:text-neutral-500">
-                Invoice
+                Receipt
               </span>
               <a
                 href={invoiceUrl}

@@ -9,10 +9,6 @@ const DashboardPage = async () => {
   const user = session?.user;
   const userId = user?.id;
 
-  if (!user || (user.role !== "trainer" && user.role !== "admin")) {
-    return redirect("/login");
-  }
-
   const classData = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/classes?userId=${userId}`,
     {

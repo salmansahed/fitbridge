@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Button } from "@heroui/react";
+import { motion } from "framer-motion";
 import {
   RiHeartAddLine,
   RiCalculatorLine,
@@ -8,6 +9,24 @@ import {
 } from "react-icons/ri";
 
 const BMICalculator = () => {
+  // Animation Variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.6 },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 1.2, ease: "easeOut" },
+    },
+  };
+
   const [weight, setWeight] = useState("");
   const [height, setHeight] = useState("");
   const [bmiResult, setBmiResult] = useState(null);
@@ -92,13 +111,19 @@ const BMICalculator = () => {
   ];
 
   return (
-    <section className="py-24 dark:bg-black overflow-hidden relative">
-      {/* Background Glow Effect */}
-      {/* <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-125 h-125 bg-linear-to-tr from-green-500/5 to-blue-500/5 rounded-full blur-3xl pointer-events-none" /> */}
-
+    <motion.section
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      className="py-24 dark:bg-black overflow-hidden relative"
+    >
       <div className="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-12 gap-16 items-center relative z-10">
         {/* Left Column */}
-        <div className="lg:col-span-5 space-y-8 text-center lg:text-left">
+        <motion.div
+          variants={itemVariants}
+          className="lg:col-span-5 space-y-8 text-center lg:text-left"
+        >
           <div className="space-y-4">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900/50 text-blue-600 dark:text-blue-400 text-xs md:text-sm font-semibold">
               <RiHeartAddLine className="text-base animate-pulse" /> Health
@@ -117,7 +142,6 @@ const BMICalculator = () => {
             </p>
           </div>
 
-          {/* BMI Ranges */}
           <div className="grid grid-cols-2 gap-3 max-w-md mx-auto lg:mx-0">
             {bmiRange.map((item, idx) => (
               <div
@@ -133,17 +157,18 @@ const BMICalculator = () => {
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
-        {/* Result Container */}
-        <div className="lg:col-span-7 space-y-6 max-w-xl mx-auto w-full">
-          {/* Form */}
+        {/* Right Column */}
+        <motion.div
+          variants={itemVariants}
+          className="lg:col-span-7 space-y-6 max-w-xl mx-auto w-full"
+        >
           <form
             onSubmit={calculateBMI}
             className="p-6 md:p-8 rounded-2xl border border-gray-200/60 dark:border-neutral-800/80 bg-white dark:bg-neutral-900/60 shadow-xs space-y-6"
           >
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              {/* Weight Input */}
               <div className="space-y-2 text-left">
                 <label className="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-neutral-400">
                   Weight (KG)
@@ -157,8 +182,6 @@ const BMICalculator = () => {
                   className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-neutral-800 bg-gray-50 dark:bg-neutral-950 text-gray-900 dark:text-white font-semibold focus:outline-hidden focus:border-blue-500 dark:focus:border-green-500 transition-colors duration-200"
                 />
               </div>
-
-              {/* Height Input */}
               <div className="space-y-2 text-left">
                 <label className="text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-neutral-400">
                   Height (CM)
@@ -173,8 +196,6 @@ const BMICalculator = () => {
                 />
               </div>
             </div>
-
-            {/* Calculate Button */}
             <Button
               type="submit"
               className="w-full font-bold text-white bg-linear-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 rounded-md hover:rounded-3xl px-6 py-6 text-sm md:text-base shadow-lg shadow-green-600/10 transition-all duration-300"
@@ -183,9 +204,8 @@ const BMICalculator = () => {
             </Button>
           </form>
 
-          {/* Result Container */}
           {bmiResult && (
-            <div className="p-6 md:p-8 rounded-2xl border border-gray-200/50 dark:border-white/5 bg-white/70 dark:bg-neutral-900/40 backdrop-blur-xl shadow-xl space-y-6 animate-fadeIn text-left">
+            <div className="p-6 md:p-8 rounded-2xl border border-gray-200/50 dark:border-white/5 bg-white/70 dark:bg-neutral-900/40 backdrop-blur-xl shadow-xl space-y-6 text-left">
               <div className="flex items-center justify-between flex-wrap gap-4">
                 <div>
                   <span className="text-xs font-bold text-gray-400 dark:text-neutral-500 uppercase tracking-widest block">
@@ -200,8 +220,6 @@ const BMICalculator = () => {
                     </span>
                   </div>
                 </div>
-
-                {/* Dynamic Status Badge */}
                 <span
                   className={`text-xs font-extrabold px-3.5 py-1.5 rounded-full border ${bmiStatus.color}`}
                 >
@@ -209,26 +227,17 @@ const BMICalculator = () => {
                 </span>
               </div>
 
-              {/* Live Visual Interactive Progress Bar Scale */}
               <div className="space-y-2">
-                <div className="flex justify-between text-[10px] font-bold text-gray-400 dark:text-neutral-500 uppercase tracking-wider">
-                  <span>Underweight</span>
-                  <span>Normal</span>
-                  <span>Overweight</span>
-                  <span>Obese</span>
-                </div>
                 <div className="w-full h-3 bg-gray-100 dark:bg-neutral-800 rounded-full overflow-hidden relative shadow-inner">
-                  {/* Dynamic Animated Progress Bar */}
-                  <div
-                    style={{ width: `${bmiStatus.percentage}%` }}
+                  <motion.div
+                    initial={{ width: 0 }}
+                    animate={{ width: `${bmiStatus.percentage}%` }}
+                    transition={{ duration: 1 }}
                     className={`h-full ${bmiStatus.barColor} transition-all duration-1000 ease-out relative rounded-full`}
-                  >
-                    <div className="absolute right-0 top-0 w-3 h-3 bg-white border-2 border-black rounded-full shadow-md animate-ping" />
-                  </div>
+                  />
                 </div>
               </div>
 
-              {/* Personalized Instant AI Guide or Advice */}
               <div className="flex items-start gap-3.5 p-4 rounded-xl bg-linear-to-br from-gray-50 to-gray-100/50 dark:from-neutral-950/50 dark:to-neutral-900/30 border border-gray-100 dark:border-neutral-900">
                 <div className="p-2 rounded-lg bg-blue-500/10 text-blue-500 dark:text-blue-400 shrink-0">
                   <RiSpeedUpLine className="text-xl" />
@@ -239,9 +248,9 @@ const BMICalculator = () => {
               </div>
             </div>
           )}
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

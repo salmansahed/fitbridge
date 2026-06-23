@@ -51,6 +51,7 @@ const ClassDetailsPage = async ({ params }) => {
     userName,
     userRole,
     userEmail,
+    userId: authorId,
   } = classData;
 
   const formattedTime = startTime
@@ -75,6 +76,7 @@ const ClassDetailsPage = async ({ params }) => {
     headers: await headers(), // you need to pass the headers object.
   });
   const userId = session?.user?.id;
+  const currentUserRole = session?.user?.role;
 
   const allredyBookedRes = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/subscriptions/${userId}/classes/${classId}`,
@@ -307,6 +309,12 @@ const ClassDetailsPage = async ({ params }) => {
                 userEmail={userEmail}
                 alreadyBookedStatus={alreadyBookedStatus}
                 userId={userId}
+                scheduleDays={scheduleDays}
+                formattedTime={formattedTime}
+                userRole={userRole}
+                currentUserRole={currentUserRole}
+                authorId={authorId}
+                userName={userName}
               />
             </div>
           </div>

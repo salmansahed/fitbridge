@@ -9,7 +9,6 @@ import Image from "next/image";
 import LogoutModal from "../auth/LogoutModal";
 import { Sling as Hamburger } from "hamburger-react";
 import { useState } from "react";
-import { FiLogOut } from "react-icons/fi";
 
 const Navbar = () => {
   const router = useRouter();
@@ -74,7 +73,7 @@ const Navbar = () => {
                   alt="User Avatar"
                   width={40}
                   height={40}
-                  className="rounded-full object-cover border-2 border-blue-500"
+                  className="w-10 h-10 rounded-full object-cover border-2 border-blue-500"
                 />
                 <div className="lg:flex flex-col justify-center text-xs text-gray-700 dark:text-gray-300 hidden">
                   <h2>

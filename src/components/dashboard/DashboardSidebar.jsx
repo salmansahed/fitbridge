@@ -146,7 +146,7 @@ const DashboardSidebar = () => {
                 alt={user?.name || "User"}
                 width={42}
                 height={42}
-                className="rounded-xl border border-green-500/30 object-cover shadow-inner"
+                className="w-12 h-12 rounded-xl border border-green-500/30 object-cover shadow-inner"
               />
               <div className="flex flex-col gap-0.5 min-w-0">
                 <h2 className="font-bold text-sm text-gray-800 dark:text-neutral-200 truncate">
