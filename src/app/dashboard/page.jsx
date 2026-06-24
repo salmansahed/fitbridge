@@ -48,6 +48,20 @@ const DashboardPage = async () => {
   );
   const {totalFavorites} = await totalFavoriteClassesCountRes.json();
 
+  // Total Users Count
+  const totalUsersCountRes = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/users/count`,
+    { cache: "no-store" },
+  );
+  const { totalUsers } = await totalUsersCountRes.json();
+
+  // Total Subcriptions Count
+  const totalSubscriptionsCountRes = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/subscriptions/count`,
+    { cache: "no-store" },
+  );
+  const { totalSubscriptions } = await totalSubscriptionsCountRes.json();
+
   return (
     <OverviewComponent
       applicationData={applicationData}
@@ -57,6 +71,8 @@ const DashboardPage = async () => {
       totalEnrolledStudents={totalStudents}
       totalBookings={totalBookings}
       totalFavorites={totalFavorites}
+      totalUsers={totalUsers}
+      totalSubscriptions={totalSubscriptions}
     />
   );
 };

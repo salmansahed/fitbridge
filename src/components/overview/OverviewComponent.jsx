@@ -27,6 +27,8 @@ const OverviewComponent = ({
   totalEnrolledStudents,
   totalBookings,
   totalFavorites,
+  totalUsers,
+  totalSubscriptions,
 }) => {
   const { status, specialty, yearsOfExperience } = applicationData || {};
 
@@ -37,6 +39,8 @@ const OverviewComponent = ({
     userImage: user?.image,
     userId: user?.id,
   };
+
+  const role = user?.role || "User";
 
   const trainerStats = [
     {
@@ -65,8 +69,6 @@ const OverviewComponent = ({
     },
   ];
 
-  const role = user?.role || "User";
-
   const userStats = [
     {
       id: 1,
@@ -94,15 +96,13 @@ const OverviewComponent = ({
     },
   ];
 
-  const totalUser = 10;
   const approvedClasses = 12;
-  const transactions = 14;
 
   const adminStats = [
     {
       id: 1,
       label: "Total Users",
-      value: totalUser,
+      value: totalUsers,
       icon: FiUsers,
       color: "from-emerald-500 to-teal-600",
       bgLight: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
@@ -118,7 +118,7 @@ const OverviewComponent = ({
     {
       id: 3,
       label: "Transactions",
-      value: transactions,
+      value: totalSubscriptions,
       icon: FiList,
       color: "from-emerald-500 to-teal-600",
       bgLight: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",

@@ -57,35 +57,35 @@ const DashboardSidebar = () => {
 
   const adminLink = [
     { label: "Overview", href: "/dashboard", icon: RxDashboard },
-    { label: "Manage Users", href: "/dashboard/manage-users", icon: RxPerson },
+    { label: "Manage Users", href: "/dashboard/admin/manage-users", icon: RxPerson },
     {
       label: "Trainer Applications",
-      href: "/dashboard/trainer-applications",
+      href: "/dashboard/admin/trainer-applications",
       icon: RxFileText,
     },
     {
       label: "Manage Trainers",
-      href: "/dashboard/manage-trainers",
+      href: "/dashboard/admin/manage-trainers",
       icon: RxLayers,
     },
     {
       label: "Manage Classes",
-      href: "/dashboard/manage-classes",
+      href: "/dashboard/admin/manage-classes",
       icon: RxCalendar,
     },
     {
       label: "Add Forum Post",
-      href: "/dashboard/add-forum-post",
+      href: "/dashboard/admin/add-forum-post",
       icon: RxPlus,
     },
     {
       label: "Forum Posts",
-      href: "/dashboard/forum-posts",
+      href: "/dashboard/admin/forum-posts",
       icon: RxEnvelopeClosed,
     },
     {
       label: "Transactions",
-      href: "/dashboard/transactions",
+      href: "/dashboard/admin/transactions",
       icon: RxActivityLog,
     },
   ];

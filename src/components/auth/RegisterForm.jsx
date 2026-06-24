@@ -212,27 +212,6 @@ const RegisterForm = () => {
         )}
       </TextField>
 
-      {/* Select Field */}
-      {/* <Select placeholder="Select one" name="role" isRequired>
-        <Label>Select Role</Label>
-        <Select.Trigger className="py-3 border border-zinc-200 rounded-xl bg-zinc-50/50">
-          <Select.Value />
-          <Select.Indicator />
-        </Select.Trigger>
-        <Select.Popover>
-          <ListBox>
-            <ListBox.Item id="buyer" textValue="Buyer">
-              Buyer
-              <ListBox.ItemIndicator />
-            </ListBox.Item>
-            <ListBox.Item id="seller" textValue="Seller">
-              Seller
-              <ListBox.ItemIndicator />
-            </ListBox.Item>
-          </ListBox>
-        </Select.Popover>
-      </Select> */}
-
       {/* Password Field */}
       <TextField
         className="w-full flex flex-col gap-1.5"

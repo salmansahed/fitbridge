@@ -14,11 +14,11 @@ export const auth = betterAuth({
     autoSignIn: false,
   },
   socialProviders: {
-        google: { 
-            clientId: process.env.GOOGLE_CLIENT_ID, 
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET, 
-        }, 
+    google: {
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     },
+  },
   user: {
     additionalFields: {
       role: {
@@ -26,6 +26,9 @@ export const auth = betterAuth({
       },
       plan: {
         defaultValue: "free",
+      },
+      status: {
+        defaultValue: "active",
       },
     },
   },
