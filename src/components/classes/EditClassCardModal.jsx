@@ -23,6 +23,7 @@ import useImageUpload from "@/lib/image-upload/useImageUpload";
 import { MdDeleteForever, MdDriveFolderUpload } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import { BiEditAlt } from "react-icons/bi";
+import { HiOutlinePencil } from "react-icons/hi";
 
 const EditClassCardModal = ({ classData }) => {
   const {
@@ -125,7 +126,6 @@ const EditClassCardModal = ({ classData }) => {
       userImage,
     };
 
-
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/classes/${_id}`,
@@ -158,9 +158,10 @@ const EditClassCardModal = ({ classData }) => {
       <Modal isOpen={isOpen} onOpenChange={setIsOpen}>
         <Button
           onPress={() => setIsOpen(true)}
-          className="px-4 py-1.5 bg-[#f4f9ed] dark:bg-[#1a2412] hover:bg-[#e9f4dc] dark:hover:bg-[#223218] border border-[#d2ebaf] dark:border-[#38531a] text-[#72c113] text-xs font-bold rounded-lg transition-all duration-200 cursor-pointer active:scale-95 shadow-2xs"
+          isIconOnly
+          className="bg-gray-100 dark:bg-neutral-700 text-black dark:text-white border border-neutral-300 dark:border-neutral-600 hover:bg-gray-200 dark:hover:bg-neutral-600"
         >
-          Edit
+          <HiOutlinePencil size={18} />
         </Button>
         <Modal.Backdrop>
           <Modal.Container placement="auto">

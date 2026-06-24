@@ -20,7 +20,6 @@ const CommunityForumPage = async ({ searchParams }) => {
   const data = await res.json();
   const publicPostsData = data?.posts || [];
   const totalItems = data?.totalPosts || 0;
-  console.log("total items ?", totalItems);
 
   const session = await auth.api.getSession({
     headers: await headers(),

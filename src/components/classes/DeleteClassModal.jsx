@@ -4,6 +4,7 @@ import { AlertDialog, Button } from "@heroui/react";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { HiOutlineTrash } from "react-icons/hi";
 
 const DeleteClassModal = ({ classData }) => {
   const { _id, name } = classData;
@@ -45,9 +46,11 @@ const DeleteClassModal = ({ classData }) => {
     <div>
       <Button
         onPress={() => setIsOpen(true)}
-        className="px-4 py-1.5 bg-red-50 dark:bg-red-950/30 hover:bg-red-100 dark:hover:bg-red-950/60 border border-red-200 dark:border-red-900/50 text-red-600 dark:text-red-400 text-xs font-bold rounded-lg transition-all duration-200 cursor-pointer active:scale-95 shadow-2xs"
+        isIconOnly
+        variant="danger"
+        className=""
       >
-        Delete
+        <HiOutlineTrash size={18} />
       </Button>
 
       <AlertDialog isOpen={isOpen} onOpenChange={setIsOpen}>

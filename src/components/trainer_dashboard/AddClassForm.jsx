@@ -104,6 +104,7 @@ const AddClassForm = ({ user }) => {
       userRole: user?.role,
       userId: user?.id,
       userImage: user?.image,
+      status: "pending",
     };
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/classes`, {

@@ -24,7 +24,6 @@ const ClassCard = async ({ classData, userId, favoriteStatus }) => {
     description,
     userId: classUserId,
   } = classData;
-  console.log("Favorite Status ?", favoriteStatus);
 
   const totalBookingsCountRes = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/subscriptions/count/${_id}`,

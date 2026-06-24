@@ -171,6 +171,27 @@ const DashboardSidebar = () => {
 
   return (
     <div>
+      <div className="hidden md:flex flex-col bg-white dark:bg-neutral-950 h-screen pt-4 w-64 border-r border-gray-200 dark:border-neutral-800 transition-colors duration-300 sticky top-0 overflow-y-auto">
+        <Link
+          href="/"
+          className="font-bold text-3xl flex items-center justify-center tracking-tight shrink-0"
+        >
+          <h2 className="bg-linear-to-r from-green-600 dark:from-green-500 to-blue-600 dark:to-blue-500 bg-clip-text text-transparent font-black">
+            FitBridge
+          </h2>
+        </Link>
+
+        <hr className="my-4 border-gray-100 dark:border-neutral-900 shrink-0" />
+
+        {profileCard}
+
+        <div className="flex-1 overflow-y-auto">{sideNav}</div>
+
+        <div className="px-4 pb-4 mt-auto border-t border-gray-100 dark:border-neutral-900 pt-4">
+          <LogoutModal />
+        </div>
+      </div>
+
       <Drawer>
         <Button
           variant="secondary"
@@ -178,27 +199,6 @@ const DashboardSidebar = () => {
         >
           <FaAlignLeft />
         </Button>
-
-        <div className="hidden md:flex flex-col bg-white dark:bg-neutral-950 h-screen pt-4 w-64 border-r border-gray-200 dark:border-neutral-800 transition-colors duration-300 sticky top-0 overflow-y-auto">
-          <Link
-            href="/"
-            className="font-bold text-3xl flex items-center justify-center tracking-tight shrink-0"
-          >
-            <h2 className="bg-linear-to-r from-green-600 dark:from-green-500 to-blue-600 dark:to-blue-500 bg-clip-text text-transparent font-black">
-              FitBridge
-            </h2>
-          </Link>
-
-          <hr className="my-4 border-gray-100 dark:border-neutral-900 shrink-0" />
-
-          {profileCard}
-
-          <div className="flex-1 overflow-y-auto">{sideNav}</div>
-
-          <div className="px-4 pb-4 mt-auto border-t border-gray-100 dark:border-neutral-900 pt-4">
-            <LogoutModal />
-          </div>
-        </div>
 
         <Drawer.Backdrop>
           <Drawer.Content

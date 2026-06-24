@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@heroui/react";
+import { Button, Chip } from "@heroui/react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -15,15 +15,27 @@ import {
   FiUser,
   FiList,
 } from "react-icons/fi";
+import { HiOutlineClock, HiOutlineSparkles, HiPlus } from "react-icons/hi";
 import { HiCheckBadge } from "react-icons/hi2";
 import { RiCalendarCheckLine } from "react-icons/ri";
 
-const OverviewComponent = ({ classesCount, forumPostCount, user }) => {
+const OverviewComponent = ({
+  applicationData,
+  classesCount,
+  forumPostCount,
+  user,
+  totalEnrolledStudents,
+  totalBookings,
+  totalFavorites,
+}) => {
+  const { status, specialty, yearsOfExperience } = applicationData || {};
+
   const userInfo = {
     name: user?.name,
     role: user?.role,
     email: user?.email,
     userImage: user?.image,
+    userId: user?.id,
   };
 
   const trainerStats = [
@@ -38,7 +50,7 @@ const OverviewComponent = ({ classesCount, forumPostCount, user }) => {
     {
       id: 2,
       label: "Total Students Enrolled",
-      value: "0",
+      value: totalEnrolledStudents,
       icon: FiUsers,
       color: "from-blue-500 to-indigo-600",
       bgLight: "bg-blue-500/10 text-blue-600 dark:text-blue-400",
@@ -53,15 +65,13 @@ const OverviewComponent = ({ classesCount, forumPostCount, user }) => {
     },
   ];
 
-  const bookedClassesCount = user?.bookedClasses?.length || 0;
-  const favoriteClassesCount = user?.favoriteClasses?.length || 0;
   const role = user?.role || "User";
 
   const userStats = [
     {
       id: 1,
       label: "Booked Classes",
-      value: bookedClassesCount,
+      value: totalBookings,
       icon: FaRegCalendarCheck,
       color: "from-emerald-500 to-teal-600",
       bgLight: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
@@ -69,7 +79,7 @@ const OverviewComponent = ({ classesCount, forumPostCount, user }) => {
     {
       id: 2,
       label: "Favorite Classes",
-      value: favoriteClassesCount,
+      value: totalFavorites,
       icon: FaRegHeart,
       color: "from-emerald-500 to-teal-600",
       bgLight: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
@@ -138,7 +148,7 @@ const OverviewComponent = ({ classesCount, forumPostCount, user }) => {
       id: 4,
       label: "My Forum Posts",
       icon: FiUser,
-      href: "/dashboard/my-forum-posts",
+      href: "/dashboard/my-posts",
     },
   ];
 
@@ -147,7 +157,7 @@ const OverviewComponent = ({ classesCount, forumPostCount, user }) => {
       id: 1,
       label: "Booked Classes",
       icon: FaRegCalendarCheck,
-      href: "/dashboard/my-booked-classes",
+      href: "/dashboard/booked-classes",
     },
     {
       id: 2,
@@ -159,7 +169,7 @@ const OverviewComponent = ({ classesCount, forumPostCount, user }) => {
       id: 3,
       label: "Apply as Trainer",
       icon: FiUser,
-      href: "/dashboard/apply-trainer",
+      href: "/dashboard/apply-as-trainer",
     },
   ];
 
@@ -305,6 +315,73 @@ const OverviewComponent = ({ classesCount, forumPostCount, user }) => {
           })}
         </div>
       </div>
+      {/* Trainer Application Card */}
+      {applicationData && userInfo.role === "user" ? (
+        <div className="p-8 bg-white dark:bg-black border border-neutral-200 dark:border-neutral-700 rounded-3xl shadow-sm">
+          <div className="flex flex-col items-start text-left space-y-4">
+            {/* Title */}
+            <h3 className="text-2xl font-extrabold text-black dark:text-white">
+              Trainer Application
+            </h3>
+
+            {/* Status Chip - Left Aligned */}
+            <div className="w-full">
+              <Chip
+                variant="soft"
+                color="danger"
+                className="w-full justify-start px-3 rounded py-2 font-bold uppercase tracking-widest text-xs"
+              >
+                <HiOutlineClock className="text-base mr-1" />
+                {status}
+              </Chip>
+            </div>
+
+            {/* Details */}
+            <div className="space-y-1 text-sm">
+              <p className="text-neutral-500 dark:text-neutral-400">
+                <span className="font-bold text-neutral-800 dark:text-neutral-200">
+                  Specialty:
+                </span>{" "}
+                {specialty}
+              </p>
+              <p className="text-neutral-500 dark:text-neutral-400">
+                <span className="font-bold text-neutral-800 dark:text-neutral-200">
+                  Experience:
+                </span>{" "}
+                {yearsOfExperience} years
+              </p>
+            </div>
+          </div>
+        </div>
+      ) : (
+        userInfo.role === "user" && (
+          <div className="w-full p-10 bg-white dark:bg-black border border-neutral-200 dark:border-neutral-700 rounded-3xl shadow-sm hover:shadow-md hover:border hover:border-green-500 transition-all duration-300">
+            <div className="flex flex-col items-center text-center space-y-6">
+              <div className="w-16 h-16 bg-neutral-100 dark:bg-neutral-900 rounded-full flex items-center justify-center">
+                <HiOutlineSparkles className="text-3xl text-neutral-400" />
+              </div>
+
+              {/* Texts */}
+              <div className="space-y-1">
+                <h3 className="text-xl font-bold text-black dark:text-white">
+                  Trainer Application
+                </h3>
+                <p className="text-sm text-neutral-500 dark:text-neutral-400">
+                  No application submitted yet.
+                </p>
+              </div>
+
+              {/* Button */}
+              <Link href="/dashboard/apply-as-trainer">
+                <Button className="h-10 bg-transparent text-green-600 dark:text-green-500 font-bold hover:bg-green-50 dark:hover:bg-green-950/30 rounded-lg transition-all">
+                  <HiPlus className="text-lg" />
+                  Apply Now
+                </Button>
+              </Link>
+            </div>
+          </div>
+        )
+      )}
     </div>
   );
 };

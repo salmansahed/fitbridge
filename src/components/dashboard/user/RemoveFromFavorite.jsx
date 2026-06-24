@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 const RemoveFromFavorite = ({ userId, classId }) => {
   const router = useRouter();
   const handleRemoveFromFavorite = async () => {
-    console.log("Remove from favorites clicked");
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/favorites/${userId}/${classId}`,
       {

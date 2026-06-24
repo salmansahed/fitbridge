@@ -15,9 +15,11 @@ import {
   Select,
   ListBox,
 } from "@heroui/react";
+import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
 const ApplyAsTrainerForm = ({ userId }) => {
+  const router = useRouter();
   const categories = [
     { value: "yoga", label: "Yoga" },
     { value: "pilates", label: "Pilates" },
@@ -32,7 +34,10 @@ const ApplyAsTrainerForm = ({ userId }) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
-    console.log("Form Data:", data);
+    const finalData = {
+      ...data,
+      status: "pending",
+    };
 
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/apply-as-trainer`,
@@ -41,12 +46,13 @@ const ApplyAsTrainerForm = ({ userId }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ ...data, userId }),
+        body: JSON.stringify({ ...finalData, userId }),
       },
     );
     const result = await res.json();
     if (result.success) {
       toast.success(result.message);
+      router.refresh();
     } else {
       toast.error(result.message);
     }
@@ -103,7 +109,7 @@ const ApplyAsTrainerForm = ({ userId }) => {
               isRequired
               name="bio"
               validate={(value) => {
-                if (value.length < 100) {
+                if (value.length < 1) {
                   return "Bio must be at least 100 characters";
                 }
 
