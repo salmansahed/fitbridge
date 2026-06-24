@@ -1,11 +1,11 @@
 "use client";
 
 import { Button } from "@heroui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa6";
 import { toast } from "react-toastify";
 
-const PaymentButton = ({
+const PaymentAndFavoriteButton = ({
   className,
   classPrice,
   classId,
@@ -18,7 +18,10 @@ const PaymentButton = ({
   currentUserRole,
   userName,
 }) => {
+  const id = Array.isArray(classId) ? classId[0] : classId;
   const [isFavorited, setIsFavorited] = useState(false);
+  const [loading, setLoading] = useState(true);
+
   const handleCheckout = async () => {
     try {
       const response = await fetch("/api/checkout", {
@@ -55,6 +58,30 @@ const PaymentButton = ({
     });
   };
 
+  // Handle favorite button click
+  useEffect(() => {
+    const checkFavoriteStatus = async () => {
+      if (!userId || !id) return;
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/favorites/${userId}`,
+        );
+        const data = await res.json();
+
+        const isExists = data.favoriteClasses?.some(
+          (fav) => fav.classId === id,
+        );
+        setIsFavorited(!!isExists);
+      } catch (error) {
+        console.error("Error:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    checkFavoriteStatus();
+  }, [userId, id]);
+
+  // Handle favorite toggle
   const handleFavoriteToggle = async () => {
     try {
       const res = await fetch(
@@ -62,7 +89,7 @@ const PaymentButton = ({
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ userId, classId: classId[0] }),
+          body: JSON.stringify({ userId, classId: id }),
         },
       );
 
@@ -76,6 +103,8 @@ const PaymentButton = ({
         } else {
           toast.error("Removed from Favorites");
         }
+      } else {
+        toast.error("Failed to update favorites");
       }
     } catch (error) {
       toast.error("Something went wrong!");
@@ -107,26 +136,23 @@ const PaymentButton = ({
         </Button>
       )}
 
-      {userRole === currentUserRole ? (
-        ""
-      ) : (
+      {userRole !== currentUserRole && (
         <Button
           onClick={handleFavoriteToggle}
-          className={`w-full py-6 rounded-xl font-bold uppercase tracking-wider transition-all ${
+          isLoading={loading}
+          className={`w-full py-6 rounded-xl font-bold uppercase transition-all ${
             isFavorited
-              ? "bg-red-50 text-red-500 border border-red-500 dark:border-red-500"
+              ? "bg-red-50 text-red-500 border border-red-500"
               : "bg-white text-black border border-gray-300 hover:bg-gray-100"
           }`}
         >
           {isFavorited ? (
             <>
-              <FaHeart className="text-red-500" />
-              <span>Favorited</span>
+              <FaHeart className="text-red-500" /> <span>Favorited</span>
             </>
           ) : (
             <>
-              <FaRegHeart className="text-gray-500" />
-              <span>Add to Favorites</span>
+              <FaRegHeart /> <span>Add to Favorites</span>
             </>
           )}
         </Button>
@@ -135,4 +161,4 @@ const PaymentButton = ({
   );
 };
 
-export default PaymentButton;
+export default PaymentAndFavoriteButton;

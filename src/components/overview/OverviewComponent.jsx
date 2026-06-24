@@ -153,7 +153,7 @@ const OverviewComponent = ({ classesCount, forumPostCount, user }) => {
       id: 2,
       label: "Favorite Classes",
       icon: FaRegHeart,
-      href: "/dashboard/favorite-classes",
+      href: "/dashboard/favorites",
     },
     {
       id: 3,

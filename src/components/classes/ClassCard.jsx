@@ -5,9 +5,10 @@ import { Button } from "@heroui/react";
 import Link from "next/link";
 import EditClassCardModal from "./EditClassCardModal";
 import DeleteClassModal from "./DeleteClassModal";
-import { FaRegUser } from "react-icons/fa6";
+import { FaHeart, FaRegUser } from "react-icons/fa6";
+import RemoveFromFavorite from "../dashboard/user/RemoveFromFavorite";
 
-const ClassCard = async ({ classData, userId }) => {
+const ClassCard = async ({ classData, userId, favoriteStatus }) => {
   const {
     _id,
     image,
@@ -23,6 +24,7 @@ const ClassCard = async ({ classData, userId }) => {
     description,
     userId: classUserId,
   } = classData;
+  console.log("Favorite Status ?", favoriteStatus);
 
   const totalBookingsCountRes = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/subscriptions/count/${_id}`,
@@ -139,6 +141,7 @@ const ClassCard = async ({ classData, userId }) => {
           <DeleteClassModal classData={classData} />
         </div>
       )}
+      {favoriteStatus && <RemoveFromFavorite userId={userId} classId={_id} />}
     </div>
   );
 };

@@ -14,9 +14,9 @@ import { Button } from "@heroui/react";
 import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa6";
 import userAvatar from "../../../assets/images/useravatar.png";
-import PaymentButton from "./PaymentButton";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import PaymentAndFavoriteButton from "./PaymentAndFavoriteButton";
 
 const ClassDetailsPage = async ({ params }) => {
   const { classId } = await params;
@@ -302,7 +302,7 @@ const ClassDetailsPage = async ({ params }) => {
                 </div>
               </div>
               {/* Call-to-action registration system trigger button */}
-              <PaymentButton
+              <PaymentAndFavoriteButton
                 className={name}
                 classPrice={price}
                 classId={classId}
