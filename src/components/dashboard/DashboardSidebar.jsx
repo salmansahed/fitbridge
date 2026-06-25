@@ -75,7 +75,7 @@ const DashboardSidebar = () => {
     },
     {
       label: "Add Forum Post",
-      href: "/dashboard/admin/add-forum-post",
+      href: "/dashboard/add-forum-post",
       icon: RxPlus,
     },
     {
