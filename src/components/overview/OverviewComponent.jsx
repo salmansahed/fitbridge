@@ -334,6 +334,14 @@ const OverviewComponent = ({
                 <HiOutlineClock className="text-base mr-1" />
                 {status}
               </Chip>
+              <div className="mt-2">
+                {status === "rejected" && (
+                  <p className="text-sm text-red-600 dark:text-red-400 bg-black/5 dark:bg-white/5 p-3 rounded-lg border border-red-500/20">
+                    <span className="font-bold">Reason for Rejection:</span>{" "}
+                    {applicationData.rejectionReason}
+                  </p>
+                )}
+              </div>
             </div>
 
             {/* Details */}

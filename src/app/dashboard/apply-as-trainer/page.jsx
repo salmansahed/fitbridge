@@ -8,6 +8,7 @@ const ApplyAsTrainerPage = async () => {
     headers: await headers(),
   });
   const userId = session?.user?.id;
+  const user = session?.user;
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/trainer-applications/${userId}`,
@@ -19,7 +20,7 @@ const ApplyAsTrainerPage = async () => {
       {applicationData ? (
         <TrainerPendingApplication applicationData={applicationData} />
       ) : (
-        <ApplyAsTrainerForm userId={userId} />
+        <ApplyAsTrainerForm user={user} />
       )}
     </div>
   );

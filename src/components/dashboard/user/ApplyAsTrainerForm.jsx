@@ -1,6 +1,6 @@
 "use client";
+const userAvatar = "../../../assets/images/useravatar.png";
 
-import { FloppyDisk } from "@gravity-ui/icons";
 import {
   Button,
   Description,
@@ -18,7 +18,7 @@ import {
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
-const ApplyAsTrainerForm = ({ userId }) => {
+const ApplyAsTrainerForm = ({ user }) => {
   const router = useRouter();
   const categories = [
     { value: "yoga", label: "Yoga" },
@@ -37,6 +37,11 @@ const ApplyAsTrainerForm = ({ userId }) => {
     const finalData = {
       ...data,
       status: "pending",
+      rejectionReason: null,
+      userEmail: user?.email || "Not provided",
+      userName: user?.name || "Not provided",
+      userId: user?.id || "Not provided",
+      userImage: user?.image || userAvatar,
     };
 
     const res = await fetch(
@@ -46,7 +51,7 @@ const ApplyAsTrainerForm = ({ userId }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ ...finalData, userId }),
+        body: JSON.stringify({ ...finalData }),
       },
     );
     const result = await res.json();
