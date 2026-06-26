@@ -13,9 +13,17 @@ const AdminForumPostsPage = async () => {
 
   return (
     <div className="p-6">
-      <h1 className="text-3xl font-extrabold text-slate-800 dark:text-zinc-100 mb-8 tracking-tight">
-        Forum Posts
-      </h1>
+      <div className="mb-6 shadow-sm rounded-xl p-6 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700">
+        <h1 className="text-2xl sm:text-3xl font-extrabold dark:text-white mb-1">
+          Forum Posts
+        </h1>
+        <p className="font-medium text-slate-500">
+          Total Posts:{" "}
+          <span className="font-bold text-xl sm:text-2xl text-[#84cc16]">
+            {initialPosts.length}
+          </span>
+        </p>
+      </div>
 
       {initialPosts.length > 0 ? (
         <ForumPostsTableClient initialPosts={initialPosts} />

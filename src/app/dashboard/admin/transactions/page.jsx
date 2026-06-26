@@ -24,13 +24,24 @@ const TransactionsPage = async () => {
 
   return (
     <div className="px-6 min-h-screen ">
-      <h1 className="text-[28px] font-extrabold dark:text-white mb-1">
-        Transactions
-      </h1>
-      <p className="text-[15px] font-medium text-slate-500 mb-6">
-        Total Revenue:{" "}
-        <span className="font-bold text-2xl text-[#84cc16]">${totalRevenue}</span>
-      </p>
+      <div className="mb-6 shadow-sm rounded-xl p-6 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700">
+        <h1 className="text-2xl sm:text-3xl font-extrabold dark:text-white mb-1">
+          Transactions
+        </h1>
+        {/* Total Transactions Length */}
+        <p className="text-sm text-slate-500 dark:text-zinc-400">
+          Total Transactions:{" "}
+          <span className="font-semibold text-xl text-green-500 sm:text-2xl dark:text-green-400">
+            {transactions.length}
+          </span>
+        </p>
+        <p className="text-[15px] font-medium text-slate-500 dark:text-zinc-400 mt-2">
+          Total Revenue:{" "}
+          <span className="font-bold text-xl sm:text-2xl text-[#84cc16]">
+            ${totalRevenue}
+          </span>
+        </p>
+      </div>
 
       <TransactionsTableClient initialTransactions={transactions} />
     </div>

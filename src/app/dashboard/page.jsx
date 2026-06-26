@@ -23,7 +23,6 @@ const DashboardPage = async () => {
   );
   const response = await forumPosts.json();
   const forumPostCount = response.totalPosts;
-  console.log("forumPostCount??", forumPostCount);
 
   const applicationRes = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/trainer-applications/${userId}`,
@@ -46,7 +45,7 @@ const DashboardPage = async () => {
     `${process.env.NEXT_PUBLIC_SERVER_URL}/favorites/count/${userId}`,
     { cache: "no-store" },
   );
-  const {totalFavorites} = await totalFavoriteClassesCountRes.json();
+  const { totalFavorites } = await totalFavoriteClassesCountRes.json();
 
   // Total Users Count
   const totalUsersCountRes = await fetch(
@@ -62,6 +61,13 @@ const DashboardPage = async () => {
   );
   const { totalSubscriptions } = await totalSubscriptionsCountRes.json();
 
+  // Total Classes Count
+  const totalClassesCountRes = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/admin/classes/count`,
+    { cache: "no-store" },
+  );
+  const { count: totalApprovedClasses } = await totalClassesCountRes.json();
+
   return (
     <OverviewComponent
       applicationData={applicationData}
@@ -73,6 +79,7 @@ const DashboardPage = async () => {
       totalFavorites={totalFavorites}
       totalUsers={totalUsers}
       totalSubscriptions={totalSubscriptions}
+      totalApprovedClasses={totalApprovedClasses}
     />
   );
 };

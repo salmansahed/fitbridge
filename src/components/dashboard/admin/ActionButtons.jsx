@@ -9,7 +9,7 @@ export default function ActionButtons({ userId, currentStatus }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
-  //  Make Admin Button Function
+  //   Make Admin Button Function
   const handleMakeAdmin = async () => {
     setLoading(true);
     try {
@@ -75,7 +75,7 @@ export default function ActionButtons({ userId, currentStatus }) {
         size="sm"
         isLoading={loading}
         onClick={handleMakeAdmin}
-        className="rounded-md bg-green-600/10 text-green-600 hover:bg-green-600/20 font-medium"
+        className="rounded-md bg-green-600/10 text-green-600 hover:bg-green-600/20 dark:bg-green-500/10 dark:text-green-400 dark:hover:bg-green-500/20 font-medium"
       >
         Make Admin
       </Button>
@@ -87,8 +87,8 @@ export default function ActionButtons({ userId, currentStatus }) {
         onClick={handleToggleStatus}
         className={`rounded-md font-medium transition-colors ${
           currentStatus === "active"
-            ? "bg-red-600/10 text-red-600 hover:bg-red-600/20"
-            : "bg-teal-600/10 text-teal-600 hover:bg-teal-600/20"
+            ? "bg-red-600/10 text-red-600 hover:bg-red-600/20 dark:bg-red-500/10 dark:text-red-400 dark:hover:bg-red-500/20"
+            : "bg-teal-600/10 text-teal-600 hover:bg-teal-600/20 dark:bg-teal-500/10 dark:text-teal-400 dark:hover:bg-teal-500/20"
         }`}
       >
         {currentStatus === "active" ? "Block" : "Unblock"}

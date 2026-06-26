@@ -1,12 +1,10 @@
 "use client";
 
-import { Rocket } from "@gravity-ui/icons";
 import { Button, Modal } from "@heroui/react";
-import { HiOutlineEye, HiOutlineUserGroup } from "react-icons/hi";
+import { HiOutlineUserGroup } from "react-icons/hi";
 import { MdOutlineEmail } from "react-icons/md";
 
 const EnrollStudentModal = ({ enrolledUsers }) => {
-    console.log(enrolledUsers);
   return (
     <div>
       <Modal>

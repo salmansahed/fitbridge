@@ -29,6 +29,7 @@ const OverviewComponent = ({
   totalFavorites,
   totalUsers,
   totalSubscriptions,
+  totalApprovedClasses,
 }) => {
   const { status, specialty, yearsOfExperience } = applicationData || {};
 
@@ -96,7 +97,7 @@ const OverviewComponent = ({
     },
   ];
 
-  const approvedClasses = 12;
+  const approvedClasses = totalApprovedClasses;
 
   const adminStats = [
     {

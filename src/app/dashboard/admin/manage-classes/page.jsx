@@ -26,10 +26,20 @@ export default async function ManageClassesPage() {
 
   return (
     <div className="p-6 min-h-screen">
-      <div className="mb-6">
+      <div className="mb-6 shadow-sm rounded-xl p-6 bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-700">
         <h2 className="text-2xl font-bold text-slate-800 dark:text-white tracking-tight">
           Manage Classes
         </h2>
+        <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+          Here you can view and manage all the classes submitted by instructors.
+        </p>
+        {/* Total Classes */}
+        <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+          Total Classes:{" "}
+          <span className="font-semibold text-xl text-green-500 sm:text-2xl dark:text-green-400">
+            {initialClasses.length}
+          </span>
+        </p>
       </div>
 
       {initialClasses.length > 0 ? (
