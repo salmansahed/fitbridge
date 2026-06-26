@@ -13,5 +13,11 @@ export async function proxy(request) {
 }
 
 export const config = {
-  matcher: ["/dashboard", "/dashboard/:path*"],
+  matcher: [
+    "/dashboard",
+    "/dashboard/:path*",
+    "/class-details/:id",
+    "/class-details/:id/:path*",
+    "/community-forum/forum-details/:id",
+  ],
 };

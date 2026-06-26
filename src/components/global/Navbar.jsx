@@ -81,7 +81,7 @@ const Navbar = () => {
                       ? user.name.split(" ").slice(0, 2).join(" ")
                       : ""}
                   </h2>{" "}
-                  <h2>{user?.role || "User"}</h2>
+                  <h2 className="capitalize">{user?.role || "User"}</h2>
                 </div>
               </div>
               <LogoutModal />
@@ -142,7 +142,7 @@ const Navbar = () => {
                   />
                   <div className="flex flex-col justify-center text-sm text-gray-700 dark:text-gray-300">
                     <h3>{user?.name || "User"}</h3>
-                    <h3>{user?.role || "User"}</h3>
+                    <h3 className="capitalize">{user?.role || "User"}</h3>
                   </div>
                 </div>
                 <div className="space-y-3 mt-2">

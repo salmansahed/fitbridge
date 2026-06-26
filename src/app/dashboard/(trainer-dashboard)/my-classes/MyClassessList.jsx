@@ -42,7 +42,7 @@ const MyClassessList = async ({ classItem, userId }) => {
             </h3>
 
             <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-widest bg-emerald-500/10 text-emerald-500 border border-emerald-500/20">
-              {"Pending"}
+              {classItem.status}
             </span>
           </div>
           <div className="flex items-center gap-3 text-xs text-neutral-400">

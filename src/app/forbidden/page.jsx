@@ -6,7 +6,7 @@ import { HiShieldCheck } from "react-icons/hi2";
 const ForbiddenPage = () => {
   return (
     <div className="min-h-screen w-full bg-slate-50 dark:bg-neutral-950 flex items-center justify-center p-4 md:p-6 transition-colors duration-300 relative overflow-hidden">
-        {/* Background Glow Effect */}
+      {/* Background Glow Effect */}
       <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-rose-500/10 dark:bg-rose-500/5 blur-3xl rounded-full pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-emerald-500/10 dark:bg-emerald-500/5 blur-3xl rounded-full pointer-events-none" />
 

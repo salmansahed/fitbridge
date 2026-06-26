@@ -17,12 +17,19 @@ const PaymentAndFavoriteButton = ({
   userRole,
   currentUserRole,
   userName,
+  userStatus,
 }) => {
   const id = Array.isArray(classId) ? classId[0] : classId;
   const [isFavorited, setIsFavorited] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const handleCheckout = async () => {
+    if (userStatus === "blocked") {
+      return toast.error("Access Denied! Booking is blocked by admin.", {
+        position: "top-center",
+      });
+    }
+
     try {
       const response = await fetch("/api/checkout", {
         method: "POST",
@@ -83,6 +90,12 @@ const PaymentAndFavoriteButton = ({
 
   // Handle favorite toggle
   const handleFavoriteToggle = async () => {
+    if (userStatus === "blocked") {
+      return toast.error("Access Denied! Action blocked by admin.", {
+        position: "top-center",
+      });
+    }
+
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/favorites`,

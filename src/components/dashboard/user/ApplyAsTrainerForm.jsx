@@ -44,22 +44,29 @@ const ApplyAsTrainerForm = ({ user }) => {
       userImage: user?.image || userAvatar,
     };
 
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/apply-as-trainer`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/apply-as-trainer`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ ...finalData }),
         },
-        body: JSON.stringify({ ...finalData }),
-      },
-    );
-    const result = await res.json();
-    if (result.success) {
-      toast.success(result.message);
-      router.refresh();
-    } else {
-      toast.error(result.message);
+      );
+
+      const result = await res.json();
+
+      if (res.ok && result.success) {
+        toast.success(result.message);
+        router.refresh();
+      } else {
+        toast.error(result.message || result.error || "Application failed!");
+      }
+    } catch (error) {
+      console.error("Network Error:", error);
+      toast.error("Network error! Please try again later.");
     }
   };
 
@@ -114,7 +121,7 @@ const ApplyAsTrainerForm = ({ user }) => {
               isRequired
               name="bio"
               validate={(value) => {
-                if (value.length < 1) {
+                if (value.length < 100) {
                   return "Bio must be at least 100 characters";
                 }
 

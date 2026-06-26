@@ -73,10 +73,11 @@ const ClassDetailsPage = async ({ params }) => {
   const totalBookedStudents = bookingCount || 0;
 
   const session = await auth.api.getSession({
-    headers: await headers(), // you need to pass the headers object.
+    headers: await headers(),
   });
   const userId = session?.user?.id;
   const currentUserRole = session?.user?.role;
+  const userStatus = session?.user?.status;
 
   const allredyBookedRes = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/subscriptions/${userId}/classes/${classId}`,
@@ -315,6 +316,7 @@ const ClassDetailsPage = async ({ params }) => {
                 currentUserRole={currentUserRole}
                 authorId={authorId}
                 userName={userName}
+                userStatus={userStatus}
               />
             </div>
           </div>

@@ -63,9 +63,9 @@ const DiscussionHub = ({ forumId, currentUser }) => {
         setRefreshTrigger((prev) => prev + 1);
         return true;
       }
-      toast.error(data.message || "Something went wrong!");
+      toast.error(data.error || data.message || "Something went wrong!", {position: "top-center"});
     } catch (error) {
-      toast.error("Network error! Please try again.");
+      toast.error("Network error! Please try again.", {position: "top-center"});
     }
     return false;
   };

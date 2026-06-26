@@ -63,7 +63,7 @@ const DashboardPage = async () => {
 
   // Total Classes Count
   const totalClassesCountRes = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/admin/classes/count`,
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/admin/approved-classes/count`,
     { cache: "no-store" },
   );
   const { count: totalApprovedClasses } = await totalClassesCountRes.json();
