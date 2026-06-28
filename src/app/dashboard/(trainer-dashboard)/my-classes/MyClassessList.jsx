@@ -31,6 +31,9 @@ const MyClassessList = async ({ classItem, userId }) => {
   );
   const enrolledUsers = await enrolledRes.json();
 
+  // Get Class Status
+  const classStatus = classItem.status;
+
   return (
     <div
       key={classItem._id}
@@ -73,13 +76,23 @@ const MyClassessList = async ({ classItem, userId }) => {
 
       {/* Right Side: Buttons */}
       <div className="flex items-center gap-2">
-        <EnrollStudentModal enrolledUsers={enrolledUsers} />
-        <Link href={`/class-details/${classItem._id}`}>
-          <Button className="bg-gray-100 text-black border border-neutral-300 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 hover:bg-gray-200 dark:hover:bg-neutral-600">
+        <EnrollStudentModal
+          enrolledUsers={enrolledUsers}
+          classStatus={classStatus}
+        />
+        {classStatus === "pending" ? (
+          <Button isDisabled className="bg-gray-100 text-black border border-neutral-300 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 hover:bg-gray-200 dark:hover:bg-neutral-600">
             <HiOutlineEye size={18} />
             View Class
           </Button>
-        </Link>
+        ) : (
+          <Link href={`/class-details/${classItem._id}`}>
+            <Button className="bg-gray-100 text-black border border-neutral-300 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 hover:bg-gray-200 dark:hover:bg-neutral-600">
+              <HiOutlineEye size={18} />
+              View Class
+            </Button>
+          </Link>
+        )}
         <EditClassCardModal classData={classItem} />
         <DeleteClassModal classData={classItem} />
       </div>

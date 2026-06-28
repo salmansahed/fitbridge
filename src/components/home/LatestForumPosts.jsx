@@ -13,7 +13,6 @@ const LatestForumPosts = async () => {
   );
   const data = await res.json();
   const posts = data?.posts || [];
-  console.log("posts ???", posts.length);
 
   return (
     <section className="py-24 relative overflow-hidden dark:bg-neutral-950 transition-colors duration-500">

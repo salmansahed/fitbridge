@@ -4,14 +4,24 @@ import { Button, Modal } from "@heroui/react";
 import { HiOutlineUserGroup } from "react-icons/hi";
 import { MdOutlineEmail } from "react-icons/md";
 
-const EnrollStudentModal = ({ enrolledUsers }) => {
+const EnrollStudentModal = ({ enrolledUsers, classStatus }) => {
   return (
     <div>
       <Modal>
-        <Button className="bg-gray-100 text-black border border-neutral-300 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 hover:bg-gray-200 dark:hover:bg-neutral-600">
-          <HiOutlineUserGroup size={18} />
-          Enrolled
-        </Button>
+        {classStatus === "pending" ? (
+          <Button
+            isDisabled
+            className="bg-gray-100 text-black border border-neutral-300 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 hover:bg-gray-200 dark:hover:bg-neutral-600"
+          >
+            <HiOutlineUserGroup size={18} />
+            Enrolled
+          </Button>
+        ) : (
+          <Button className="bg-gray-100 text-black border border-neutral-300 dark:bg-neutral-700 dark:text-white dark:border-neutral-600 hover:bg-gray-200 dark:hover:bg-neutral-600">
+            <HiOutlineUserGroup size={18} />
+            Enrolled
+          </Button>
+        )}
         <Modal.Backdrop>
           <Modal.Container>
             <Modal.Dialog className="sm:max-w-90">

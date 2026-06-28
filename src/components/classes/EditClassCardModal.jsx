@@ -143,7 +143,6 @@ const EditClassCardModal = ({ classData }) => {
       );
 
       const data = await res.json();
-      console.log("Edit class modal console ?", data);
 
       if (data.modifiedCount > 0) {
         toast.success("Class updated successfully!", {
