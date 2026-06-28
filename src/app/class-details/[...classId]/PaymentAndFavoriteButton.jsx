@@ -125,9 +125,13 @@ const PaymentAndFavoriteButton = ({
         setIsFavorited(data.isFavorited);
 
         if (data.isFavorited) {
-          toast.success("Added to Favorites");
+          toast.success("Added to Favorites", {
+            position: "top-center",
+          });
         } else {
-          toast.error("Removed from Favorites");
+          toast.error("Removed from Favorites", {
+            position: "top-center",
+          });
         }
       } else {
         toast.error(data.message || "Something went wrong!", {
@@ -135,7 +139,9 @@ const PaymentAndFavoriteButton = ({
         });
       }
     } catch (error) {
-      toast.error("Something went wrong!");
+      toast.error("Something went wrong!", {
+        position: "top-center",
+      });
     }
   };
 

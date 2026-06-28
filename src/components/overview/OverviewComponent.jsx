@@ -97,8 +97,6 @@ const OverviewComponent = ({
     },
   ];
 
-  const approvedClasses = totalApprovedClasses;
-
   const adminStats = [
     {
       id: 1,
@@ -111,7 +109,7 @@ const OverviewComponent = ({
     {
       id: 2,
       label: "Approved Classes",
-      value: approvedClasses,
+      value: totalApprovedClasses || 0,
       icon: FiLayers,
       color: "from-emerald-500 to-teal-600",
       bgLight: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
@@ -119,7 +117,7 @@ const OverviewComponent = ({
     {
       id: 3,
       label: "Transactions",
-      value: totalSubscriptions,
+      value: totalSubscriptions || 0,
       icon: FiList,
       color: "from-emerald-500 to-teal-600",
       bgLight: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
@@ -179,7 +177,7 @@ const OverviewComponent = ({
       id: 1,
       label: "Manage Users",
       icon: FaRegUser,
-      href: "/dashboard/admin/all-users",
+      href: "/dashboard/admin/manage-users",
     },
     {
       id: 2,
@@ -191,13 +189,13 @@ const OverviewComponent = ({
       id: 3,
       label: "Manage Trainers",
       icon: FiLayers,
-      href: "/dashboard/admin/all-trainers",
+      href: "/dashboard/admin/manage-trainers",
     },
     {
       id: 4,
       label: "Manage Classes",
       icon: RiCalendarCheckLine,
-      href: "/dashboard/admin/all-classes",
+      href: "/dashboard/admin/manage-classes",
     },
     {
       id: 5,

@@ -38,7 +38,7 @@ const ManageUsersPage = async () => {
           <span className="text-sm text-slate-600 dark:text-zinc-400">
             Total Users:{" "}
             <span className="font-semibold text-xl text-green-500 sm:text-2xl dark:text-green-400">
-              {users.length}
+              {users.length || 0}
             </span>
           </span>
         </p>
