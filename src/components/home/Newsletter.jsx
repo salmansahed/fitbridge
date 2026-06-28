@@ -19,7 +19,7 @@ const Newsletter = () => {
   };
 
   return (
-    <section className="py-20 dark:bg-black relative overflow-hidden border-t border-gray-100 dark:border-neutral-900">
+    <section className="py-20 dark:bg-black relative overflow-hidden">
       {/* Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-150 h-75 bg-linear-to-r from-blue-500/5 to-green-500/5 rounded-full blur-3xl pointer-events-none" />
 
@@ -76,7 +76,7 @@ const Newsletter = () => {
                 <RiCheckDoubleLine className="text-base" />
               </div>
               <p className="text-sm font-bold tracking-wide">
-                You're in! Welcome to the elite squad. Check your inbox soon.
+                You&apos;re in! Welcome to the elite squad. Check your inbox soon.
               </p>
             </div>
           )}

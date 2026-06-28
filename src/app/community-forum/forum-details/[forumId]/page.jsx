@@ -16,13 +16,31 @@ import DiscussionHub from "@/components/forum-details/DiscussionHub";
 
 const ForumDetailsPage = async ({ params }) => {
   const { forumId } = await params;
+
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/forum-posts/${forumId}`,
     {
       cache: "no-store",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
     },
   );
   const data = await res.json();
+
+  if (!res.ok) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-neutral-50 dark:bg-neutral-950">
+        <p className="text-sm font-bold text-neutral-400">
+          Forum Details Not Found!
+        </p>
+      </div>
+    );
+  }
 
   const session = await auth.api.getSession({
     headers: await headers(),

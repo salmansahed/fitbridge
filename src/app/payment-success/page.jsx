@@ -1,5 +1,7 @@
+import { auth } from "@/lib/auth";
 import { stripe } from "@/lib/stripe";
 import { Button } from "@heroui/react";
+import { headers } from "next/headers";
 import Link, { redirect } from "next/link";
 import { FaArrowLeft } from "react-icons/fa6";
 import { HiOutlineCheckCircle } from "react-icons/hi";
@@ -68,11 +70,16 @@ export default async function PaymentSuccessPage({ searchParams }) {
     invoiceUrl,
   };
 
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+
   if (status === "complete") {
     await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/subscriptions`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ ...finalDataForDatabase }),
     });

@@ -5,6 +5,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { HiOutlineTrash } from "react-icons/hi";
+import { authClient } from "@/lib/auth-client";
 
 const DeleteClassModal = ({ classData }) => {
   const { _id, name } = classData;
@@ -17,26 +18,39 @@ const DeleteClassModal = ({ classData }) => {
   const handleDelete = async () => {
     setIsDeleting(true);
 
+    const { data: tokenData } = await authClient.token();
+
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/classes/${_id}`,
         {
           method: "DELETE",
+          headers: {
+            authorization: `Bearer ${tokenData?.token}`,
+          },
         },
       );
 
       const data = await res.json();
 
       if (data.deletedCount > 0) {
-        toast.success("Class deleted successfully!");
+        toast.success("Class deleted successfully!", {
+          position: "top-center",
+        });
         setIsOpen(false);
         router.refresh();
       } else {
-        toast.error("Failed to delete the class. Please try again.");
+        toast.error(
+          data.message || "Failed to delete the class. Please try again.",
+          {
+            position: "top-center",
+          },
+        );
       }
     } catch (error) {
-      console.error("Delete Error:", error);
-      toast.error("Something went wrong! Please try again.");
+      toast.error("Something went wrong! Please try again.", {
+        position: "top-center",
+      });
     } finally {
       setIsDeleting(false);
     }

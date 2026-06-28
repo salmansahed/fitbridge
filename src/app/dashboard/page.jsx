@@ -9,6 +9,10 @@ const DashboardPage = async () => {
   const user = session?.user;
   const userId = user?.id;
 
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+
   const classData = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/classes?userId=${userId}`,
     {
@@ -19,52 +23,93 @@ const DashboardPage = async () => {
 
   const forumPosts = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/forum-post?userId=${userId}`,
-    { cache: "no-store" },
+    {
+      cache: "no-store",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    },
   );
   const response = await forumPosts.json();
   const forumPostCount = response.totalPosts;
 
   const applicationRes = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/trainer-applications/${userId}`,
+    {
+      cache: "no-store",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    },
   );
   const [applicationData] = await applicationRes.json();
 
   const totalEnrolledStudentsCountRes = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/subscriptions/total-enrolled/${userId}`,
-    { cache: "no-store" },
+    {
+      cache: "no-store",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    },
   );
   const { totalStudents } = await totalEnrolledStudentsCountRes.json();
 
   const totalBookingRes = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/subscriptions/my-bookings-count/${userId}`,
-    { cache: "no-store" },
+    {
+      cache: "no-store",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    },
   );
   const { totalBookings } = await totalBookingRes.json();
 
   const totalFavoriteClassesCountRes = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/favorites/count/${userId}`,
-    { cache: "no-store" },
+    {
+      cache: "no-store",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    },
   );
   const { totalFavorites } = await totalFavoriteClassesCountRes.json();
 
   // Total Users Count
   const totalUsersCountRes = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/users/count`,
-    { cache: "no-store" },
+    {
+      cache: "no-store",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    },
   );
   const { totalUsers } = await totalUsersCountRes.json();
 
   // Total Subcriptions Count
   const totalSubscriptionsCountRes = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/subscriptions/count`,
-    { cache: "no-store" },
+    {
+      cache: "no-store",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    },
   );
   const { totalSubscriptions } = await totalSubscriptionsCountRes.json();
 
   // Total Classes Count
   const totalClassesCountRes = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/admin/approved-classes/count`,
-    { cache: "no-store" },
+    {
+      cache: "no-store",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    },
   );
   const { count: totalApprovedClasses } = await totalClassesCountRes.json();
 

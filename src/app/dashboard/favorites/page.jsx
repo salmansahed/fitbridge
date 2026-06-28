@@ -11,8 +11,18 @@ const UserFavoritesPage = async () => {
   });
   const userId = session?.user?.id;
 
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/favorites/${userId}`,
+    {
+      cache: "no-store",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    },
   );
   const data = await res.json();
   const favorites = data.favoriteClasses || [];

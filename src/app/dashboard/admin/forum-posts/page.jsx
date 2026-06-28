@@ -1,10 +1,19 @@
 import ForumPostsTableClient from "@/components/dashboard/admin/ForumPostsTableClient";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 const AdminForumPostsPage = async () => {
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/forum-posts-for-admin`,
     {
       cache: "no-store",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
     },
   );
   const data = await res.json();

@@ -7,6 +7,7 @@ import { LuBriefcase, LuEye } from "react-icons/lu";
 import { IoIosMail } from "react-icons/io";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 
 export default function TrainerCard({ application }) {
   const router = useRouter();
@@ -16,13 +17,18 @@ export default function TrainerCard({ application }) {
 
   // ১. 'Accept Application' Button Handler
   const handleAcceptApplication = async () => {
+    const { data: tokenData } = await authClient.token();
+
     setLoading(true);
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/trainer-applications/accept/${application._id}`,
         {
           method: "PATCH",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${tokenData?.token}`,
+          },
           body: JSON.stringify({ userId: application.userId }),
         },
       );
@@ -44,6 +50,8 @@ export default function TrainerCard({ application }) {
 
   // ২. 'Confirm Rejection' Button Handler
   const handleRejectApplication = async () => {
+    const { data: tokenData } = await authClient.token();
+
     if (!rejectionReason) {
       toast.warn("Please provide a rejection reason.");
       return;
@@ -55,7 +63,10 @@ export default function TrainerCard({ application }) {
         `${process.env.NEXT_PUBLIC_SERVER_URL}/trainer-applications/reject/${application._id}`,
         {
           method: "PATCH",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${tokenData?.token}`,
+          },
           body: JSON.stringify({ rejectionReason: rejectionReason }),
         },
       );

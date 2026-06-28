@@ -146,7 +146,7 @@ const BMICalculator = () => {
             {bmiRange.map((item, idx) => (
               <div
                 key={idx}
-                className={`p-3.5 rounded-xl border border-gray-300 dark:border-neutral-900 dark:bg-neutral-900/30 text-left transition-all duration-300 ${item.border} ${item.bgColor}`}
+                className={`p-3.5 rounded-xl border border-gray-300 dark:border-neutral-800 dark:bg-neutral-900/30 text-left transition-all duration-300 ${item.border} ${item.bgColor}`}
               >
                 <span className="block text-xs font-bold text-white dark:text-neutral-500">
                   {item.label}
@@ -166,7 +166,7 @@ const BMICalculator = () => {
         >
           <form
             onSubmit={calculateBMI}
-            className="p-6 md:p-8 rounded-2xl border border-gray-200/60 dark:border-neutral-800/80 bg-white dark:bg-neutral-900/60 shadow-xs space-y-6"
+            className="p-6 md:p-8 rounded-2xl border border-gray-200/60 dark:border-neutral-700 bg-white dark:bg-neutral-900/60 shadow-xs space-y-6"
           >
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div className="space-y-2 text-left">

@@ -19,6 +19,7 @@ import { toast } from "react-toastify";
 import { MdDeleteForever, MdDriveFolderUpload } from "react-icons/md";
 import useImageUpload from "@/lib/image-upload/useImageUpload";
 import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 
 const AddForumPostForm = ({ user }) => {
   const router = useRouter();
@@ -67,6 +68,8 @@ const AddForumPostForm = ({ user }) => {
       userRole: user?.role,
     };
 
+    const { data: tokenData } = await authClient.token();
+
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/forum-post`,
@@ -74,20 +77,33 @@ const AddForumPostForm = ({ user }) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            authorization: `Bearer ${tokenData?.token}`,
           },
           body: JSON.stringify(finalSubmissionData),
         },
       );
 
       const data = await res.json();
+
       if (data.insertedId) {
-        toast.success("Forum post added successfully!");
+        toast.success("Forum post added successfully!", {
+          position: "top-center",
+        });
         formElement.reset();
         handleRemoveImage();
         router.refresh();
+      } else {
+        toast.error(
+          data.message || "Failed to create post. Please try again.",
+          {
+            position: "top-center",
+          },
+        );
       }
     } catch (error) {
-      toast.error("Failed to create post. Please try again.");
+      toast.error("Network error. Please try again.", {
+        position: "top-center",
+      });
     }
   };
 

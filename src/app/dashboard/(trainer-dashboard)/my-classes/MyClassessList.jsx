@@ -1,7 +1,9 @@
 import DeleteClassModal from "@/components/classes/DeleteClassModal";
 import EditClassCardModal from "@/components/classes/EditClassCardModal";
 import EnrollStudentModal from "@/components/classes/EnrollStudentModal";
+import { auth } from "@/lib/auth";
 import { Button } from "@heroui/react";
+import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 import { HiOutlineEye } from "react-icons/hi";
@@ -14,15 +16,25 @@ const MyClassessList = async ({ classItem, userId }) => {
   const { bookingCount } = await totalBookingsCountRes.json();
   const totalBookings = bookingCount || 0;
 
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+
   const enrolledRes = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/subscriptions/enrolled-users/${classItem._id}?userId=${userId}`,
+    {
+      cache: "no-store",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    },
   );
   const enrolledUsers = await enrolledRes.json();
 
   return (
     <div
       key={classItem._id}
-      className="group flex items-center justify-between p-4 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 rounded-2xl hover:border-green-500 transition-all duration-300 shadow-sm"
+      className="group flex items-center justify-between p-4 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 rounded-2xl hover:border-green-500 transition-all duration-300 shadow-sm flex-wrap gap-4"
     >
       {/* Image and Title */}
       <div className="flex items-center gap-4">

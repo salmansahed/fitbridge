@@ -92,7 +92,7 @@ const CorePillars = () => {
             </p>
           </div>
 
-          <div className="relative p-6 rounded-2xl border border-gray-200 dark:border-white/5 bg-white/60 dark:bg-neutral-900/40 backdrop-blur-xl shadow-lg max-w-md mx-auto lg:mx-0 text-left overflow-hidden group">
+          <div className="relative p-6 rounded-2xl border border-gray-200 dark:border-neutral-800 bg-white/60 dark:bg-neutral-900/40 backdrop-blur-xl shadow-lg max-w-md mx-auto lg:mx-0 text-left overflow-hidden group">
             <div className="absolute -right-10 -top-10 w-32 h-32 bg-linear-to-br from-green-500/10 to-blue-500/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700" />
             <div className="flex items-center justify-between border-b border-gray-200/60 dark:border-neutral-800/60 pb-4 mb-4">
               <div className="flex items-center gap-3">
@@ -133,7 +133,7 @@ const CorePillars = () => {
           {pillars.map((pillar, index) => (
             <div
               key={index}
-              className="group flex flex-col sm:flex-row items-start gap-5 p-6 rounded-2xl border border-gray-200/60 dark:border-neutral-800/40 bg-white dark:bg-neutral-900/60 shadow-xs hover:shadow-xl hover:border-blue-500/30 dark:hover:border-green-500/20 hover:-translate-y-0.5 transition-all duration-300"
+              className="group flex flex-col sm:flex-row items-start gap-5 p-6 rounded-2xl border border-gray-200/60 dark:border-neutral-800 bg-white dark:bg-neutral-900/60 shadow-xs hover:shadow-xl hover:border-blue-500/30 dark:hover:border-green-500/20 hover:-translate-y-0.5 transition-all duration-300"
             >
               <div className="p-4 rounded-xl bg-gray-100 dark:bg-neutral-800 group-hover:bg-linear-to-br group-hover:from-green-600/10 group-hover:to-blue-600/10 text-gray-700 dark:text-gray-300 transition-all duration-300 shrink-0 shadow-xs">
                 {pillar.icon}

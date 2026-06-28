@@ -4,28 +4,40 @@ import React, { useState } from "react";
 import { Table, Button, AlertDialog, Chip } from "@heroui/react";
 import { toast } from "react-toastify";
 import Image from "next/image";
+import { authClient } from "@/lib/auth-client";
 
 export default function ForumPostsTableClient({ initialPosts }) {
   const [posts, setPosts] = useState(initialPosts || []);
   const [loadingId, setLoadingId] = useState(null);
 
   const handleDeleteClass = async (postId) => {
+    const { data: tokenData } = await authClient.token();
+
     setLoadingId(postId);
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/forum-posts-for-admin/${postId}`,
-        { method: "DELETE" },
+        {
+          method: "DELETE",
+          headers: { authorization: `Bearer ${tokenData?.token}` },
+        },
       );
       const data = await res.json();
 
       if (data.success) {
-        toast.success("Post has been deleted permanently");
+        toast.success("Post has been deleted permanently", {
+          position: "top-center",
+        });
         setPosts((prev) => prev.filter((p) => p._id !== postId));
       } else {
-        toast.error(data.message || "Failed to delete post");
+        toast.error(data.message || "Failed to delete post", {
+          position: "top-center",
+        });
       }
     } catch (error) {
-      toast.error("Something went wrong!");
+      toast.error("Something went wrong!", {
+        position: "top-center",
+      });
     } finally {
       setLoadingId(null);
     }

@@ -1,5 +1,6 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import { Button } from "@heroui/react";
 import { useEffect, useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa6";
@@ -68,10 +69,17 @@ const PaymentAndFavoriteButton = ({
   // Handle favorite button click
   useEffect(() => {
     const checkFavoriteStatus = async () => {
+      const { data: tokenData } = await authClient.token();
       if (!userId || !id) return;
       try {
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_SERVER_URL}/favorites/${userId}`,
+          {
+            cache: "no-store",
+            headers: {
+              authorization: `Bearer ${tokenData?.token}`,
+            },
+          },
         );
         const data = await res.json();
 
@@ -96,12 +104,17 @@ const PaymentAndFavoriteButton = ({
       });
     }
 
+    const { data: tokenData } = await authClient.token();
+
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/favorites`,
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${tokenData?.token}`,
+          },
           body: JSON.stringify({ userId, classId: id }),
         },
       );
@@ -117,7 +130,9 @@ const PaymentAndFavoriteButton = ({
           toast.error("Removed from Favorites");
         }
       } else {
-        toast.error("Failed to update favorites");
+        toast.error(data.message || "Something went wrong!", {
+          position: "top-center",
+        });
       }
     } catch (error) {
       toast.error("Something went wrong!");

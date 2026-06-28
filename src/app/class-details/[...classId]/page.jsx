@@ -21,9 +21,18 @@ import PaymentAndFavoriteButton from "./PaymentAndFavoriteButton";
 const ClassDetailsPage = async ({ params }) => {
   const { classId } = await params;
 
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/classes/${classId}`,
-    { cache: "no-store" },
+    {
+      cache: "no-store",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    },
   );
 
   if (!res.ok) {
@@ -81,7 +90,12 @@ const ClassDetailsPage = async ({ params }) => {
 
   const allredyBookedRes = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/subscriptions/${userId}/classes/${classId}`,
-    { cache: "no-store" },
+    {
+      cache: "no-store",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    },
   );
   const { success, subscription } = await allredyBookedRes.json();
   const { classId: subscriptionId, userId: subscriptionUserId } =

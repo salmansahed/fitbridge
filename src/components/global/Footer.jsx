@@ -34,7 +34,7 @@ const Footer = () => {
     { label: "Portal Login", href: "#" },
   ];
   return (
-    <footer className="w-full bg-gray-800 dark:bg-black border-t border-slate-700 pt-16 pb-8 px-6 sm:px-12 md:px-24 font-sans selection:bg-emerald-500 selection:text-black">
+    <footer className="w-full bg-gray-800 dark:bg-black border-t border-neutral-800 pt-16 pb-8 px-6 sm:px-12 md:px-24 font-sans selection:bg-emerald-500 selection:text-black">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
         {/* Column 1: Brand Info */}
         <div className="flex flex-col space-y-5">

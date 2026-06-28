@@ -7,6 +7,7 @@ import { BsArrow90DegDown } from "react-icons/bs";
 import Image from "next/image";
 import { toast } from "react-toastify";
 import userAvatar from "../../assets/images/useravatar.png";
+import { authClient } from "@/lib/auth-client";
 
 const API_BASE = `${process.env.NEXT_PUBLIC_SERVER_URL}/forum-comments`;
 
@@ -31,9 +32,13 @@ const DiscussionHub = ({ forumId, currentUser }) => {
     let isMounted = true;
 
     const loadComments = async () => {
+      const { data: tokenData } = await authClient.token();
       try {
         const res = await fetch(`${API_BASE}/${forumId}`, {
           cache: "no-store",
+          headers: {
+            authorization: `Bearer ${tokenData?.token}`,
+          },
         });
         const data = await res.json();
         if (isMounted && Array.isArray(data)) setComments(data);
@@ -50,22 +55,32 @@ const DiscussionHub = ({ forumId, currentUser }) => {
 
   // Helper helper to avoid code duplication in POST/PATCH/DELETE requests
   const handleApiRequest = async (url, method, bodyData, successMsg) => {
+    const { data: tokenData } = await authClient.token();
     try {
       const res = await fetch(url, {
         method,
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${tokenData?.token}`,
+        },
         body: JSON.stringify(bodyData),
       });
       const data = await res.json();
 
       if (data.success) {
-        toast.success(successMsg);
+        toast.success(successMsg, {
+          position: "top-center",
+        });
         setRefreshTrigger((prev) => prev + 1);
         return true;
       }
-      toast.error(data.error || data.message || "Something went wrong!", {position: "top-center"});
+      toast.error(data.error || data.message || "Something went wrong!", {
+        position: "top-center",
+      });
     } catch (error) {
-      toast.error("Network error! Please try again.", {position: "top-center"});
+      toast.error("Network error! Please try again.", {
+        position: "top-center",
+      });
     }
     return false;
   };

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Button } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { authClient } from "@/lib/auth-client";
 
 export default function ActionButtons({ userId, currentStatus }) {
   const router = useRouter();
@@ -11,13 +12,18 @@ export default function ActionButtons({ userId, currentStatus }) {
 
   //   Make Admin Button Function
   const handleMakeAdmin = async () => {
+    const { data: tokenData } = await authClient.token();
+
     setLoading(true);
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/users/${userId}`,
         {
           method: "PATCH",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${tokenData?.token}`,
+          },
           body: JSON.stringify({ role: "admin" }),
         },
       );
@@ -39,6 +45,8 @@ export default function ActionButtons({ userId, currentStatus }) {
 
   // Block Unblock Toggle Button Function
   const handleToggleStatus = async () => {
+    const { data: tokenData } = await authClient.token();
+
     setLoading(true);
     const newStatus = currentStatus === "active" ? "blocked" : "active";
     try {
@@ -46,7 +54,10 @@ export default function ActionButtons({ userId, currentStatus }) {
         `${process.env.NEXT_PUBLIC_SERVER_URL}/users/${userId}`,
         {
           method: "PATCH",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${tokenData?.token}`,
+          },
           body: JSON.stringify({ status: newStatus }),
         },
       );

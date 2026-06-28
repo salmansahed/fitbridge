@@ -1,15 +1,24 @@
 import TransactionsTableClient from "@/components/dashboard/admin/TransactionsTableClient";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import React from "react";
 
 const TransactionsPage = async () => {
   let transactions = [];
   let totalRevenue = 0;
 
+    const { token } = await auth.api.getToken({
+      headers: await headers(),
+    });
+
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/admin/transactions`,
       {
         cache: "no-store",
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
       },
     );
     const data = await res.json();

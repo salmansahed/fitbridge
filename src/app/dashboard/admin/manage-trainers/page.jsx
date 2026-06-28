@@ -1,13 +1,22 @@
 import TrainerTableClient from "@/components/dashboard/admin/TrainerTableClient";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import React from "react";
 import { HiOutlineUsers } from "react-icons/hi";
 
 export default async function ManageTrainersPage() {
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+
   let initialTrainers = [];
 
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/trainers`, {
       cache: "no-store",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
     });
 
     const data = await res.json();
@@ -25,7 +34,8 @@ export default async function ManageTrainersPage() {
           Manage Trainers
         </h2>
         <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
-          Here you can view and manage all the trainers registered on the platform.
+          Here you can view and manage all the trainers registered on the
+          platform.
         </p>
         {/* Total Trainers */}
         <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">

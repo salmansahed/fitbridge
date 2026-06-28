@@ -42,6 +42,7 @@ const ReactionSection = ({ forumId }) => {
   // Handle vote toggle or switch logic
   const handleReactionClick = async (actionType) => {
     // Block action if user is not logged in
+    const { data: tokenData } = await authClient.token();
     if (!user) {
       toast.warning("Please login to react on this post! 🙋‍♂️");
       return;
@@ -53,7 +54,10 @@ const ReactionSection = ({ forumId }) => {
         `${process.env.NEXT_PUBLIC_SERVER_URL}/forum-posts/${forumId}/reaction`,
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${tokenData?.token}`,
+          },
           body: JSON.stringify({
             userId: user.id || user.email,
             action: actionType,
@@ -62,6 +66,15 @@ const ReactionSection = ({ forumId }) => {
       );
 
       const data = await res.json();
+
+      if (!data.success && !data.myStatus) {
+        toast.error(
+          data?.message || "Failed to process your reaction. Please try again.",
+          {
+            position: "top-center",
+          },
+        );
+      }
 
       if (data.success) {
         // Update states immediately with updated counts from the backend
@@ -72,10 +85,10 @@ const ReactionSection = ({ forumId }) => {
         // UI notifications based on backend response
         if (data.myStatus === actionType) {
           toast.success(`Post ${actionType}d successfully! 🎉`, {
-            autoClose: 1500,
+            position: "top-center",
           });
         } else if (data.myStatus === null) {
-          toast.info(`Removed your ${actionType}.`, { autoClose: 1500 });
+          toast.info(`Removed your ${actionType}.`, { position: "top-center" });
         }
       }
     } catch (error) {

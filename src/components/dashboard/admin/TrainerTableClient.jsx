@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Table, Button, AlertDialog } from "@heroui/react";
 import { toast } from "react-toastify";
 import Image from "next/image";
+import { authClient } from "@/lib/auth-client";
 
 // Receiving initialTrainers data as props from the server page
 export default function TrainerTableClient({ initialTrainers }) {
@@ -13,13 +14,18 @@ export default function TrainerTableClient({ initialTrainers }) {
 
   // Main function to handle trainer demotion
   const handleDemote = async (trainerId, trainerEmail) => {
+    const { data: tokenData } = await authClient.token();
+
     setLoadingId(trainerId); // Set loading state for the clicked button only
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/trainers/demote/${trainerId}`,
         {
           method: "PATCH",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${tokenData?.token}`,
+          },
           body: JSON.stringify({ email: trainerEmail }),
         },
       );

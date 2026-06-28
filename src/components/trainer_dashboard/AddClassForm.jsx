@@ -22,6 +22,7 @@ import { toast } from "react-toastify";
 import useImageUpload from "@/lib/image-upload/useImageUpload";
 import { MdDeleteForever, MdDriveFolderUpload } from "react-icons/md";
 import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 
 const AddClassForm = ({ user }) => {
   const router = useRouter();
@@ -107,21 +108,37 @@ const AddClassForm = ({ user }) => {
       status: "pending",
     };
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/classes`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(finalSubmissionData),
-    });
+    const { data: tokenData } = await authClient.token();
 
-    const data = await res.json();
-    if (data.insertedId) {
-      toast.success("Class added successfully!");
-      formElement.reset();
-      setSelectedDays([]);
-      handleRemoveImage();
-      router.refresh();
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/classes`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${tokenData?.token}`,
+        },
+        body: JSON.stringify(finalSubmissionData),
+      });
+
+      const data = await res.json();
+
+      if (data.insertedId) {
+        toast.success("Class added successfully!", {
+          position: "top-center",
+        });
+        formElement.reset();
+        setSelectedDays([]);
+        handleRemoveImage();
+        router.refresh();
+      } else {
+        toast.error(data.message || "Something went wrong!", {
+          position: "top-center",
+        });
+      }
+    } catch (err) {
+      toast.error("Network error! Cannot connect to server.", {
+        position: "top-center",
+      });
     }
   };
 
@@ -416,13 +433,12 @@ const AddClassForm = ({ user }) => {
                 Time
               </Label>
               <div className="w-full">
-                <TextField
-                  isRequired
-                  name="startTime"
-                  className="w-full"
-                >
+                <TextField isRequired name="startTime" className="w-full">
                   <Label className="sr-only">Start Time</Label>
-                  <Input type="time" className="w-full border border-gray-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 rounded-xl px-4 py-2 text-sm text-gray-700 dark:text-neutral-200 focus-within:border-green-500 transition-all" />
+                  <Input
+                    type="time"
+                    className="w-full border border-gray-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 rounded-xl px-4 py-2 text-sm text-gray-700 dark:text-neutral-200 focus-within:border-green-500 transition-all"
+                  />
                   <FieldError className="text-xs text-red-500 mt-1" />
                 </TextField>
               </div>

@@ -22,9 +22,18 @@ const MyPostsPage = async ({ searchParams }) => {
   const page = parseInt(resolvedParams?.page) || 1;
   const size = parseInt(resolvedParams?.size) || 8;
 
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/forum-post?userId=${userId}&page=${page}&limit=${size}`,
-    { cache: "no-store" },
+    {
+      cache: "no-store",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    },
   );
 
   const responseData = await res.json();

@@ -10,8 +10,19 @@ const bookedClasses = async () => {
     headers: await headers(),
   });
   const userId = session?.user?.id;
+
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/subscriptions/user/${userId}`,
+    {
+      cache: "no-store",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    },
   );
   const data = (await res.json()) || [];
   if (data.success === false) {

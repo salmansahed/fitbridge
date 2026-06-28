@@ -20,7 +20,7 @@ const CTACommunity = () => {
     >
       <div className="container mx-auto px-3">
         {/* Full-width Premium Card Container */}
-        <div className="relative rounded-3xl border border-gray-200/80 dark:border-neutral-800/60 bg-linear-to-br from-gray-50 via-white to-gray-50/50 dark:from-neutral-900/90 dark:via-neutral-950 dark:to-neutral-900/40 p-8 md:p-12 lg:p-16 shadow-2xl overflow-hidden group">
+        <div className="relative rounded-3xl border border-gray-200/80 dark:border-neutral-800 bg-linear-to-br from-gray-50 via-white to-gray-50/50 dark:from-neutral-900/90 dark:via-neutral-950 dark:to-neutral-900/40 p-8 md:p-12 lg:p-16 shadow-2xl overflow-hidden group">
           {/* Card Background Glow */}
           <div className="absolute -right-20 -bottom-20 w-64 h-64 bg-linear-to-tr from-green-600/10 to-blue-600/10 rounded-full blur-2xl group-hover:scale-125 transition-transform duration-700 pointer-events-none" />
 
@@ -46,7 +46,7 @@ const CTACommunity = () => {
             </div>
 
             {/* Column 2: iPhone-style Trust and Social Proof Widget (Grid Span: 4) */}
-            <div className="lg:col-span-4 p-6 rounded-2xl border border-gray-200/50 dark:border-white/5 bg-white/60 dark:bg-neutral-900/40 backdrop-blur-xl shadow-lg max-w-sm mx-auto w-full space-y-4">
+            <div className="lg:col-span-4 p-6 rounded-2xl border border-gray-200/50 dark:border-neutral-800 bg-white/60 dark:bg-neutral-900/40 backdrop-blur-xl shadow-lg max-w-sm mx-auto w-full space-y-4">
               <span className="text-xs font-bold text-gray-400 dark:text-neutral-500 uppercase tracking-widest block text-center lg:text-left">
                 FitBridge Ecosystem Pulse
               </span>

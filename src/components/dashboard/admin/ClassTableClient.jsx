@@ -5,6 +5,7 @@ import { Table, Button, AlertDialog } from "@heroui/react";
 import { toast } from "react-toastify";
 import Image from "next/image";
 import userAvatar from "../../../assets/images/useravatar.png";
+import { authClient } from "@/lib/auth-client";
 
 export default function ClassTableClient({ initialClasses }) {
   const [classes, setClasses] = useState(initialClasses || []);
@@ -12,16 +13,26 @@ export default function ClassTableClient({ initialClasses }) {
 
   // Approve a class and update UI state
   const handleApproveClass = async (classId) => {
+    const { data: tokenData } = await authClient.token();
+
     setLoadingId(classId);
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/classes/approve/${classId}`,
-        { method: "PATCH" },
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${tokenData?.token}`,
+          },
+        },
       );
       const data = await res.json();
 
       if (data.success) {
-        toast.success("Class has been approved successfully");
+        toast.success("Class has been approved successfully", {
+          position: "top-center",
+        });
         setClasses((prev) =>
           prev.map((c) =>
             c._id === classId ? { ...c, status: "approved" } : c,
@@ -40,16 +51,26 @@ export default function ClassTableClient({ initialClasses }) {
 
   // Reject a class and update UI state
   const handleRejectClass = async (classId) => {
+    const { data: tokenData } = await authClient.token();
+
     setLoadingId(classId);
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/classes/reject/${classId}`,
-        { method: "PATCH" },
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${tokenData?.token}`,
+          },
+        },
       );
       const data = await res.json();
 
       if (data.success) {
-        toast.success("Class has been rejected successfully");
+        toast.success("Class has been rejected successfully", {
+          position: "top-center",
+        });
         setClasses((prev) =>
           prev.map((c) =>
             c._id === classId ? { ...c, status: "rejected" } : c,
@@ -68,19 +89,28 @@ export default function ClassTableClient({ initialClasses }) {
 
   // Permanently delete a class from database and update UI
   const handleDeleteClass = async (classId) => {
+    const { data: tokenData } = await authClient.token();
+
     setLoadingId(classId);
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/classes/${classId}`,
-        { method: "DELETE" },
+        {
+          method: "DELETE",
+          headers: { authorization: `Bearer ${tokenData?.token}` },
+        },
       );
       const data = await res.json();
 
       if (res.ok && (data.success || data.deletedCount > 0)) {
-        toast.success("Class has been deleted permanently");
+        toast.success("Class has been deleted permanently", {
+          position: "top-center",
+        });
         setClasses((prev) => prev.filter((c) => c._id !== classId));
       } else {
-        toast.error(data.message || "Failed to delete class");
+        toast.error(data.message || "Failed to delete class", {
+          position: "top-center",
+        });
       }
     } catch (error) {
       console.error("Frontend Delete Error:", error);

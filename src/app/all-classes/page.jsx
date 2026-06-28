@@ -13,7 +13,6 @@ const AllClassesPage = async ({ searchParams }) => {
   const search = resolvedParams?.search || "";
   const category = resolvedParams?.category || "";
 
-  // Dynamic conditional API execution targeting backend endpoints
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/classes?page=${page}&size=${size}&search=${encodeURIComponent(search)}&category=${encodeURIComponent(category)}`,
     {

@@ -11,10 +11,12 @@ const CommunityForumPage = async ({ searchParams }) => {
   const page = parseInt(resolvedParams?.page) || 1;
   const limit = parseInt(resolvedParams?.limit) || 8;
   const search = resolvedParams?.search || "";
+
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/public-forum-posts?page=${page}&limit=${limit}&search=${encodeURIComponent(search)}`,
     {
       cache: "no-store",
+      
     },
   );
   const data = await res.json();

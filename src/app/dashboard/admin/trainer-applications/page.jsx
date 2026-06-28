@@ -1,11 +1,22 @@
 import TrainerCard from "@/components/dashboard/admin/TrainerCard";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import React from "react";
 import { LuInbox } from "react-icons/lu";
 
 const TrainerApplicationsPage = async () => {
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+
   const applicationsRes = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/trainer-applications`,
-    { cache: "no-store" },
+    {
+      cache: "no-store",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    },
   );
   const { applications } = await applicationsRes.json();
 

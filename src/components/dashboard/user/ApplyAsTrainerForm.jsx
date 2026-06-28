@@ -1,6 +1,7 @@
 "use client";
 const userAvatar = "../../../assets/images/useravatar.png";
 
+import { authClient } from "@/lib/auth-client";
 import {
   Button,
   Description,
@@ -44,6 +45,8 @@ const ApplyAsTrainerForm = ({ user }) => {
       userImage: user?.image || userAvatar,
     };
 
+    const { data: tokenData } = await authClient.token();
+
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/apply-as-trainer`,
@@ -51,6 +54,7 @@ const ApplyAsTrainerForm = ({ user }) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            authorization: `Bearer ${tokenData?.token}`,
           },
           body: JSON.stringify({ ...finalData }),
         },
@@ -59,14 +63,20 @@ const ApplyAsTrainerForm = ({ user }) => {
       const result = await res.json();
 
       if (res.ok && result.success) {
-        toast.success(result.message);
+        toast.success(result.message, {
+          position: "top-center",
+        });
         router.refresh();
       } else {
-        toast.error(result.message || result.error || "Application failed!");
+        toast.error(result.message || result.error || "Application failed!", {
+          position: "top-center",
+        });
       }
     } catch (error) {
       console.error("Network Error:", error);
-      toast.error("Network error! Please try again later.");
+      toast.error("Network error! Please try again later.", {
+        position: "top-center",
+      });
     }
   };
 

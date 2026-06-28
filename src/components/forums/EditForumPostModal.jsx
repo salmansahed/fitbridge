@@ -21,6 +21,7 @@ import useImageUpload from "@/lib/image-upload/useImageUpload";
 import { MdDeleteForever, MdDriveFolderUpload } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import { BiEditAlt } from "react-icons/bi";
+import { authClient } from "@/lib/auth-client";
 
 const EditForumPostModal = ({ postData }) => {
   const {
@@ -71,11 +72,12 @@ const EditForumPostModal = ({ postData }) => {
     }
 
     const finalSubmissionData = {
-      ...restPostData, 
+      ...restPostData,
       ...updatedFormFields,
       image: finalImageUrl,
     };
 
+    const { data: tokenData } = await authClient.token();
 
     try {
       const res = await fetch(
@@ -84,6 +86,7 @@ const EditForumPostModal = ({ postData }) => {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
+            authorization: `Bearer ${tokenData?.token}`,
           },
           body: JSON.stringify(finalSubmissionData),
         },
@@ -92,16 +95,21 @@ const EditForumPostModal = ({ postData }) => {
       const data = await res.json();
 
       if (data.modifiedCount > 0) {
-        toast.success("Forum post updated successfully!");
+        toast.success("Forum post updated successfully!", {
+          position: "top-center",
+        });
         setIsOpen(false);
         router.refresh();
       } else {
-        toast.info("No changes were made.");
+        toast.error(data.message || "Failed to update the forum post.", {
+          position: "top-center",
+        });
         setIsOpen(false);
       }
     } catch (error) {
-      console.error("Update error:", error);
-      toast.error("Something went wrong! Please try again.");
+      toast.error("Something went wrong! Please try again.", {
+        position: "top-center",
+      });
     }
   };
 

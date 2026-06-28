@@ -24,6 +24,7 @@ import { MdDeleteForever, MdDriveFolderUpload } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import { BiEditAlt } from "react-icons/bi";
 import { HiOutlinePencil } from "react-icons/hi";
+import { authClient } from "@/lib/auth-client";
 
 const EditClassCardModal = ({ classData }) => {
   const {
@@ -126,6 +127,8 @@ const EditClassCardModal = ({ classData }) => {
       userImage,
     };
 
+    const { data: tokenData } = await authClient.token();
+
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/classes/${_id}`,
@@ -133,23 +136,31 @@ const EditClassCardModal = ({ classData }) => {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
+            authorization: `Bearer ${tokenData?.token}`,
           },
           body: JSON.stringify(finalSubmissionData),
         },
       );
 
       const data = await res.json();
+      console.log("Edit class modal console ?", data);
 
       if (data.modifiedCount > 0) {
-        toast.success("Class updated successfully!");
+        toast.success("Class updated successfully!", {
+          position: "top-center",
+        });
         setIsOpen(false);
         router.refresh();
       } else {
-        toast.info("No changes were made.");
+        toast.error(data.message || "No changes were made to the class.", {
+          position: "top-center",
+        });
         setIsOpen(false);
       }
     } catch (error) {
-      toast.error("Something went wrong! Please try again.");
+      toast.error("Something went wrong! Please try again.", {
+        position: "top-center",
+      });
     }
   };
 

@@ -1,18 +1,10 @@
-import ClassCard from "@/components/classes/ClassCard";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import {
-  HiOutlineEye,
-  HiOutlineFolderOpen,
-  HiOutlinePencil,
-  HiOutlineTrash,
-  HiPlus,
-} from "react-icons/hi";
+import { HiOutlineFolderOpen, HiPlus } from "react-icons/hi";
 import { Button } from "@heroui/react";
 import PaginationWithSummary from "@/components/pagination/PaginationWithSummary";
-import Image from "next/image";
 import MyClassessList from "./MyClassessList";
 
 const MyClassesPage = async ({ searchParams }) => {

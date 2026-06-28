@@ -4,6 +4,7 @@ import { AlertDialog, Button } from "@heroui/react";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 
 const DeleteForumPostModal = ({ postData }) => {
   const { _id, title } = postData;
@@ -16,26 +17,37 @@ const DeleteForumPostModal = ({ postData }) => {
   const handleDelete = async () => {
     setIsDeleting(true);
 
+    const { data: tokenData } = await authClient.token();
+
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_URL}/forum-posts/${_id}`,
         {
           method: "DELETE",
+          headers: {
+            authorization: `Bearer ${tokenData?.token}`,
+          },
         },
       );
 
       const data = await res.json();
 
       if (data.deletedCount > 0) {
-        toast.success("Forum post deleted successfully!");
+        toast.success("Forum post deleted successfully!", {
+          position: "top-center",
+        });
         setIsOpen(false);
         router.refresh();
       } else {
-        toast.error("Failed to delete the forum post. Please try again.");
+        toast.error(data.message || "Failed to delete the forum post.", {
+          position: "top-center",
+        });
       }
     } catch (error) {
       console.error("Delete Error:", error);
-      toast.error("Something went wrong! Please try again.");
+      toast.error("Something went wrong! Please try again.", {
+        position: "top-center",
+      });
     } finally {
       setIsDeleting(false);
     }
