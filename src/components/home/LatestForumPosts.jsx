@@ -1,6 +1,6 @@
 import React from "react";
 import ForumsPostsCard from "@/components/forums/ForumsPostsCard";
-import { HiOutlineUsers } from "react-icons/hi";
+import { HiOutlineEmojiSad, HiOutlineUsers } from "react-icons/hi";
 import { FaArrowRight } from "react-icons/fa6";
 import { Button } from "@heroui/react";
 
@@ -13,6 +13,7 @@ const LatestForumPosts = async () => {
   );
   const data = await res.json();
   const posts = data?.posts || [];
+  console.log("posts ???", posts.length);
 
   return (
     <section className="py-24 relative overflow-hidden dark:bg-neutral-950 transition-colors duration-500">
@@ -37,6 +38,20 @@ const LatestForumPosts = async () => {
 
         {/* Card Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {posts.length === 0 && (
+            <div className="col-span-full flex flex-col items-center justify-center py-12 text-center space-y-4">
+              <div className="p-4 bg-gray-100 dark:bg-gray-800 rounded-full">
+                <HiOutlineEmojiSad className="w-10 h-10 text-gray-400 dark:text-gray-500" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">
+                No Forum Posts Available
+              </h3>
+              <p className="text-gray-500 dark:text-gray-400 max-w-sm">
+                It looks like there are no featured forum posts at the moment.
+                Please check back later!
+              </p>
+            </div>
+          )}
           {posts.map((post) => (
             <div
               key={post._id}
