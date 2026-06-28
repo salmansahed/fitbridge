@@ -26,6 +26,26 @@ export async function POST(request) {
       headers: await headers(),
     });
     const user = userSession?.user;
+    const userId = user?.id;
+
+    if (user?.id) {
+      const statusRes = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/users/${userId}/status`,
+        {
+          cache: "no-store",
+        },
+      );
+
+      if (statusRes.ok) {
+        const statusData = await statusRes.json();
+        if (statusData?.status === "blocked") {
+          return NextResponse.json(
+            { error: "Access Denied! Booking is blocked by admin." },
+            { status: 403 },
+          );
+        }
+      }
+    }
 
     let parsedId =
       typeof classId === "object" && classId !== null

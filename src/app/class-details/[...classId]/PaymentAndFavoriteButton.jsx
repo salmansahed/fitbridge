@@ -24,6 +24,8 @@ const PaymentAndFavoriteButton = ({
   const [isFavorited, setIsFavorited] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  console.log("userStatus ?", userStatus);
+
   const handleCheckout = async () => {
     if (userStatus === "blocked") {
       return toast.error("Access Denied! Booking is blocked by admin.", {
@@ -48,8 +50,10 @@ const PaymentAndFavoriteButton = ({
       });
 
       if (!response.ok) {
-        const errorText = await response.text();
-        console.error("Backend Error Response:", errorText);
+        const data = await response.json();
+        toast.error(data?.error || "Action restricted by Admin", {
+          position: "top-center",
+        });
         return;
       }
 
