@@ -26,10 +26,17 @@ const MyClassesPage = async ({ searchParams }) => {
   const page = parseInt(resolvedParams?.page) || 1;
   const size = parseInt(resolvedParams?.size) || 8;
 
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
+
   const classData = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/classes?userId=${userId}&page=${page}&size=${size}`,
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/my-classes?userId=${userId}&page=${page}&size=${size}`,
     {
       cache: "no-store",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
     },
   );
 

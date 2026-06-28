@@ -8,10 +8,13 @@ const CategoryFilter = () => {
   const searchParams = useSearchParams();
   const CATEGORIES = [
     { id: "all", label: "All Categories" },
-    { id: "Strength", label: "Strength" },
-    { id: "Cardio", label: "Cardio" },
-    { id: "Pilates", label: "Pilates" },
-    { id: "Yoga", label: "Yoga" },
+    { value: "yoga", label: "Yoga" },
+    { value: "pilates", label: "Pilates" },
+    { value: "stretching", label: "Stretching" },
+    { value: "cardio", label: "Cardio" },
+    { value: "dance", label: "Dance" },
+    { value: "strength", label: "Strength Training" },
+    { value: "fitness", label: "Fitness" },
   ];
 
   const handleCategoryChange = (value) => {
