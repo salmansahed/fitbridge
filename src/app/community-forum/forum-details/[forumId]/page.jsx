@@ -1,5 +1,9 @@
+export const metadata = {
+  title: "Community Forum Details",
+};
+
 import React from "react";
-import { Card, Chip, Button, TextArea } from "@heroui/react";
+import { Chip, Button } from "@heroui/react";
 import {
   HiOutlineArrowLeft,
   HiOutlineCalendar,

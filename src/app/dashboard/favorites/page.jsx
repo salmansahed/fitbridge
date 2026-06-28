@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "My Favorite Classes",
+};
+
 import ClassCard from "@/components/classes/ClassCard";
 import { auth } from "@/lib/auth";
 import { Button } from "@heroui/react";

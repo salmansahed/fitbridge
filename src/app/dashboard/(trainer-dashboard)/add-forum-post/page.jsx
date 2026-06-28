@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "Add Forum Post",
+};
+
 import AddForumPostForm from "@/components/trainer_dashboard/AddForumPostForm";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";

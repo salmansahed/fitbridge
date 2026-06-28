@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "Transactions",
+};
+
 import TransactionsTableClient from "@/components/dashboard/admin/TransactionsTableClient";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
@@ -7,9 +11,9 @@ const TransactionsPage = async () => {
   let transactions = [];
   let totalRevenue = 0;
 
-    const { token } = await auth.api.getToken({
-      headers: await headers(),
-    });
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
 
   try {
     const res = await fetch(

@@ -11,7 +11,10 @@ const josefinSans = Josefin_Sans({
 });
 
 export const metadata = {
-  title: "FitBridge",
+  title: {
+    template: "%s | FitBridge",
+    default: "FitBridge",
+  },
 };
 
 export default function RootLayout({ children }) {

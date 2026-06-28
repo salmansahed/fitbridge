@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "Dashboard",
+};
+
 import OverviewComponent from "@/components/overview/OverviewComponent";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";

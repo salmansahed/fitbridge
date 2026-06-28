@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "My Forum Posts",
+};
+
 import ForumsPostsCard from "@/components/forums/ForumsPostsCard";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";

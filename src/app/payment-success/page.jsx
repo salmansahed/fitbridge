@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "Payment Successful",
+};
+
 import { auth } from "@/lib/auth";
 import { stripe } from "@/lib/stripe";
 import { Button } from "@heroui/react";

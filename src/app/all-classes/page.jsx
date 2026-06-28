@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "All Classes",
+};
+
 import CategoryFilter from "@/components/classes/CategoryFilter";
 import ClassCard from "@/components/classes/ClassCard";
 import PaginationWithSummary from "@/components/pagination/PaginationWithSummary";

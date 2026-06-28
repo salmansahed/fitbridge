@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "Register",
+};
+
 import RegisterForm from "@/components/auth/RegisterForm";
 
 const RegisterPage = () => {

@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "Class Details",
+};
+
 import Image from "next/image";
 import {
   HiOutlineClock,

@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "Trainer Applications",
+};
+
 import TrainerCard from "@/components/dashboard/admin/TrainerCard";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";

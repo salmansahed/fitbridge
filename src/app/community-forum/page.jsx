@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "Community Forum",
+};
+
 import ForumsPostsCard from "@/components/forums/ForumsPostsCard";
 import PaginationWithSummary from "@/components/pagination/PaginationWithSummary";
 import SearchBox from "@/components/reusable/SearchBox";
@@ -16,7 +20,6 @@ const CommunityForumPage = async ({ searchParams }) => {
     `${process.env.NEXT_PUBLIC_SERVER_URL}/public-forum-posts?page=${page}&limit=${limit}&search=${encodeURIComponent(search)}`,
     {
       cache: "no-store",
-      
     },
   );
   const data = await res.json();

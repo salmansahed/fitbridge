@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "My Booked Classes",
+};
+
 import { auth } from "@/lib/auth";
 import { Button, Table } from "@heroui/react";
 import { headers } from "next/headers";

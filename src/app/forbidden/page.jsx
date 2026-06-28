@@ -1,4 +1,6 @@
-"use client";
+export const metadata = {
+  title: "Forbidden",
+};
 
 import React from "react";
 import Link from "next/link";

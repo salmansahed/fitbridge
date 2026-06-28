@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "Add Class",
+};
+
 import AddClassForm from "@/components/trainer_dashboard/AddClassForm";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
@@ -8,7 +12,7 @@ const AddClassPage = async () => {
     headers: await headers(),
   });
   const user = session?.user;
-  if (!user || user.role !== "trainer" && user.role !== "admin") {
+  if (!user || (user.role !== "trainer" && user.role !== "admin")) {
     return redirect("/forbidden");
   }
   return (

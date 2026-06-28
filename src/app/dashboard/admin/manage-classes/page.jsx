@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "Manage Classes",
+};
+
 import ClassTableClient from "@/components/dashboard/admin/ClassTableClient";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
@@ -6,10 +10,10 @@ import { MdOutlineClass } from "react-icons/md";
 
 export default async function ManageClassesPage() {
   let initialClasses = [];
-  
-    const { token } = await auth.api.getToken({
-      headers: await headers(),
-    });
+
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
 
   try {
     const res = await fetch(

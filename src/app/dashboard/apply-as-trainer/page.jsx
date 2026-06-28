@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "Apply as Trainer",
+};
+
 import ApplyAsTrainerForm from "@/components/dashboard/user/ApplyAsTrainerForm";
 import TrainerPendingApplication from "@/components/dashboard/user/TrainerPendingApplication";
 import { auth } from "@/lib/auth";

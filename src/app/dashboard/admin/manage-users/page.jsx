@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "Manage Users",
+};
+
 import React from "react";
 import { Button, Chip, Table } from "@heroui/react";
 import Image from "next/image";
@@ -7,10 +11,9 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
 const ManageUsersPage = async () => {
-
-    const { token } = await auth.api.getToken({
-      headers: await headers(),
-    });
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
 
   const userRes = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/users`, {
     cache: "no-store",

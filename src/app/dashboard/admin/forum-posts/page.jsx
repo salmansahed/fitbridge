@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "Forum Posts",
+};
+
 import ForumPostsTableClient from "@/components/dashboard/admin/ForumPostsTableClient";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";

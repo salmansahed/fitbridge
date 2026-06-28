@@ -1,3 +1,7 @@
+export const metadata = {
+  title: "Manage Trainers",
+};
+
 import TrainerTableClient from "@/components/dashboard/admin/TrainerTableClient";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
