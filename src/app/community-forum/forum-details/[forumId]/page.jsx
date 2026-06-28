@@ -123,7 +123,7 @@ const ForumDetailsPage = async ({ params }) => {
                 src={data.userImage}
                 width={50}
                 height={50}
-                className="border-2 border-green-500 rounded-full object-cover shadow-md"
+                className="w-14 h-14 border-2 border-green-500 rounded-full object-cover shadow-md"
               />
               <div>
                 <h3 className="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">

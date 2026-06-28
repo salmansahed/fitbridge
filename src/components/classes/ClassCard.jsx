@@ -83,10 +83,6 @@ const ClassCard = async ({ classData, userId, favoriteStatus }) => {
             <FaRegUser className="text-sm text-green-500" />{" "}
             <span>{totalBookings}</span>
           </div>
-          <div className="flex items-center gap-1.5">
-            <HiOutlineCalendar className="text-sm text-green-500" />
-            <span className="line-clamp-1">{scheduleDays?.join(", ")}</span>
-          </div>
         </div>
       </div>
 
