@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "@heroui/react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import {
   RiFlashlightLine,
   RiArrowRightUpLine,
@@ -88,19 +89,23 @@ const CTACommunity = () => {
             {/* Column 3: Premium Button Panel (Grid Span: 3) */}
             <div className="lg:col-span-3 flex flex-col sm:flex-row lg:flex-col gap-4 justify-center items-stretch w-full max-w-sm mx-auto">
               {/* Primary Glowing Button */}
-              <Button className="font-bold text-white bg-linear-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 rounded-md hover:rounded-3xl px-8 py-6 text-base shadow-xl shadow-green-600/20 group/btn transition-all duration-300">
-                Get Started Now
-                <RiArrowRightUpLine className="text-xl group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform duration-300" />
-              </Button>
+              <Link href="/register" className="w-full sm:w-auto">
+                <Button className="font-bold text-white bg-linear-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 rounded-md hover:rounded-3xl px-8 py-6 text-base shadow-xl shadow-green-600/20 group/btn transition-all duration-300">
+                  Get Started Now
+                  <RiArrowRightUpLine className="text-xl group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform duration-300" />
+                </Button>
+              </Link>
 
               {/* Secondary Clean Button */}
-              <Button
-                variant="outline"
-                className="font-bold text-gray-800 dark:text-gray-200 border-gray-200 dark:border-neutral-800 dark:hover:bg-neutral-900 rounded-md hover:rounded-3xl px-8 py-6 text-base transition-all duration-200 group/btn2"
-              >
-                Explore Classes{" "}
-                <RiFlashlightLine className="text-lg group-hover/btn2:scale-150 transition-all duration-300" />
-              </Button>
+              <Link href="/all-classes" className="w-full sm:w-auto">
+                <Button
+                  variant="outline"
+                  className="font-bold text-gray-800 dark:text-gray-200 border-gray-200 dark:border-neutral-800 dark:hover:bg-neutral-900 rounded-md hover:rounded-3xl px-8 py-6 text-base transition-all duration-200 group/btn2"
+                >
+                  Explore Classes{" "}
+                  <RiFlashlightLine className="text-lg group-hover/btn2:scale-150 transition-all duration-300" />
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

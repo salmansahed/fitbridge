@@ -2,15 +2,15 @@ import { HiOutlineEmojiSad } from "react-icons/hi";
 import ClassCard from "../classes/ClassCard";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import { Button } from "@heroui/react";
+import Link from "next/link";
+import { FaArrowRight } from "react-icons/fa6";
 
 const getFeaturedClasses = async () => {
-
-
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/featured-classes`,
     {
       cache: "no-store",
-     
     },
   );
   return res.json();
@@ -58,6 +58,11 @@ const FeaturedClasses = async () => {
             </div>
           )}
         </div>
+        <Link href="/all-classes" className="flex justify-center mt-12">
+          <Button className="font-bold text-white bg-linear-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 rounded-md hover:rounded-3xl px-8 py-6 text-base shadow-xl shadow-green-600/20 group/btn transition-all duration-300">
+            Browse All Classes <FaArrowRight className="group-hover/btn:translate-x-1 transition-all duration-300" />
+          </Button>
+        </Link>
       </div>
     </section>
   );

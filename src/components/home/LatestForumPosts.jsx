@@ -3,6 +3,7 @@ import ForumsPostsCard from "@/components/forums/ForumsPostsCard";
 import { HiOutlineEmojiSad, HiOutlineUsers } from "react-icons/hi";
 import { FaArrowRight } from "react-icons/fa6";
 import { Button } from "@heroui/react";
+import Link from "next/link";
 
 const LatestForumPosts = async () => {
   const res = await fetch(
@@ -63,10 +64,12 @@ const LatestForumPosts = async () => {
 
         {/* View All Button */}
         <div className="flex justify-center mt-16">
-          <Button className="font-bold text-white bg-linear-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 rounded-md hover:rounded-3xl px-8 py-6 text-base shadow-xl shadow-green-600/20 group/btn transition-all duration-300">
-            Join the Discussion
-            <FaArrowRight className="text-xl group-hover/btn:translate-x-1 transition-transform duration-300" />
-          </Button>
+          <Link href="/community-forum" className="block ">
+            <Button className="font-bold text-white bg-linear-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 rounded-md hover:rounded-3xl px-8 py-6 text-base shadow-xl shadow-green-600/20 group/btn transition-all duration-300">
+              Join the Discussion
+              <FaArrowRight className="text-xl group-hover/btn:translate-x-1 transition-transform duration-300" />
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

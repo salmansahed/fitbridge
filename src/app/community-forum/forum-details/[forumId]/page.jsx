@@ -167,7 +167,7 @@ const ForumDetailsPage = async ({ params }) => {
           </div>
 
           {/* Reaction Buttons */}
-          <div className="flex items-center justify-between py-4 border-y border-slate-200 dark:border-neutral-700">
+          <div className="flex items-center flex-wrap gap-2 justify-between py-4 border-y border-slate-200 dark:border-neutral-700">
             <div className="flex items-center gap-3">
               {/* Reaction Buttons */}
               <ReactionSection forumId={forumId} />
