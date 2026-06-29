@@ -6,18 +6,19 @@ import { useRouter, useSearchParams } from "next/navigation";
 const CategoryFilter = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const CATEGORIES = [
+  const categories = [
     { id: "all", label: "All Categories" },
-    { value: "yoga", label: "Yoga" },
-    { value: "pilates", label: "Pilates" },
-    { value: "stretching", label: "Stretching" },
-    { value: "cardio", label: "Cardio" },
-    { value: "dance", label: "Dance" },
-    { value: "strength", label: "Strength Training" },
-    { value: "fitness", label: "Fitness" },
+    { id: "yoga", label: "Yoga" },
+    { id: "pilates", label: "Pilates" },
+    { id: "stretching", label: "Stretching" },
+    { id: "cardio", label: "Cardio" },
+    { id: "dance", label: "Dance" },
+    { id: "strength", label: "Strength Training" },
+    { id: "fitness", label: "Fitness" },
   ];
 
   const handleCategoryChange = (value) => {
+    console.log("category value ?", value);
     const params = new URLSearchParams(searchParams);
     params.set("category", value);
     router.push(`?${params.toString()}`);
@@ -37,7 +38,7 @@ const CategoryFilter = () => {
         </Select.Trigger>
         <Select.Popover>
           <ListBox>
-            {CATEGORIES.map((category) => (
+            {categories.map((category) => (
               <ListBox.Item
                 key={category.id}
                 id={category.id}
