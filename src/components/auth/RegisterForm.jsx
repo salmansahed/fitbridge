@@ -68,14 +68,25 @@ const RegisterForm = () => {
       email: userData.email,
       password: userData.password,
       image: serverUrl,
-      // role: userData.role,
     });
 
+    if (data) {
+      toast.success("Registration successful! Redirecting to login...");
+
+      fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/send-email`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: userData.email,
+          name: userData.name,
+        }),
+      });
+      router.push("/login");
+    }
     if (error) {
       toast.error("Registration failed: " + error.message);
-    } else {
-      toast.success("Registration successful! Redirecting to login...");
-      router.push("/login");
     }
   };
 
